@@ -5,7 +5,7 @@ from organizer.models import Startup, Tag
 
 class Post(models.Model):
     title = models.CharField(max_length=63)
-    slug = models.SlugField(max_length=63, help_text='A label for URL config'), unique_for_month='pub_date') #如不設定max_length，預設是50
+    slug = models.SlugField(max_length=63, help_text='A label for URL config', unique_for_month='pub_date') #如不設定max_length，預設是50
     text = models.TextField()
     pub_date = models.DateField('date published', auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='blog_posts')
