@@ -1,5 +1,11 @@
-<article>
+{% extends parent_template|default:"organizer/base_organizer.html" %}
 
+{% block title %}
+{{ block.super }} - {{ startup.name }}
+{% endblock title %}
+
+{% block content %}
+<article>
     <h2>{{ startup.name }}</h2>
     <dl>
     <dt>Date Founded</dt>
@@ -49,3 +55,4 @@
     </section>
     {% endif %}
 </article>
+{% endblock content %}
