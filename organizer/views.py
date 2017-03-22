@@ -1,10 +1,10 @@
 from django.http.response import (HttpResponse, Http404)
 from django.template import RequestContext, loader
-from .models import  Tag
+from .models import  Tag, Startup
 from django.shortcuts import (get_object_or_404, render)
 # Create your views here.
 
-def homepage(request):
+def tag_list(request):
 #    tag_list = Tag.objects.all()
 #    template = loader.get_template('organizer/tag_list.html')
 #    context = RequestContext(request, {'tag_list':tag_list})
@@ -24,3 +24,10 @@ def tag_detail(request, slug):
 #    context = RequestContext(request, {'tag':tag})
 #    return HttpResponse(template.render(context))
     return render(request, 'organizer/tag_detail.html', {'tag':tag}) #replace render_to_response method
+    
+def startup_list(request):
+    return render(request, 'organizer/startup_list.html', {'startup_list':Startup.objects.all()})
+    
+def startup_detail(request, slug):
+    startup = get_object_or_404(Startup, slug__iexact=slug)
+    return render(request, 'organizer/startup_detail.html',{'startup':startup})
