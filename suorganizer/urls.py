@@ -17,11 +17,14 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from organizer import urls as organizer_urls
 from blog import urls as blog_urls
+from .views import redirect_root
 #from organizer.views import homepage, tag_detail
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include(organizer_urls)),
-    url(r'^blog/', include(blog_urls) ),    
+    url(r'^', include(organizer_urls)), #tag/ or startup/
+    url(r'^blog/', include(blog_urls) ), # blog_post_list or blog_post_detail
+    url(r'^$', redirect_root), # homepage redirect to blog_post_list
+    
     
 ]
