@@ -1,15 +1,17 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Tag(models.Model):
     name = models.CharField(max_length=31)
-    slug = models.SlugField()
-    
+    slug = models.SlugField()    
     def __str__(self):
-        return self.name.title()
-        
+        return self.name.title()        
     class Meta:
-        ordering = ['name']
+        ordering = ['name']        
+    def get_absolute_url(self):
+        return reverse('organizer_tag_detail', 
+                       kwargs={'slug':self.slug})
     
 
 class Startup(models.Model):
@@ -19,14 +21,14 @@ class Startup(models.Model):
     founded_date = models.DateField('date founded')
     contact = models.EmailField()
     website = models.URLField(max_length=255)
-    tags = models.ManyToManyField(Tag)
-    
+    tags = models.ManyToManyField(Tag)    
     def __str__(self):
-        return self.name
-        
+        return self.name        
     class Meta:
         ordering = ['name']
         get_latest_by = 'founded_date'
+    def get_absolute_url(self):
+        return reverse('organizer_startup_detail', kwargs={'slug'=self.slug})
 
 class NewsLink(models.Model):
     title = models.CharField(max_length=63)
