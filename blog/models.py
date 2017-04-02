@@ -21,5 +21,7 @@ class Post(models.Model):
                        kwargs={'year':self.pub_date.year, 
                        'month':self.pub_date.month,        
                        'slug':self.slug} )
+    def test_git(self):
+        print('text_git')
         
     
