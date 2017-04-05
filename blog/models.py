@@ -1,5 +1,6 @@
 from django.db import models
 from organizer.models import Startup, Tag
+from django.urls import reverse
 
 # Create your models here.
 
@@ -21,10 +22,5 @@ class Post(models.Model):
                        kwargs={'year':self.pub_date.year, 
                        'month':self.pub_date.month,        
                        'slug':self.slug} )
-
-=======
-    def git_test(self):
-        print('git_test')
->>>>>>> test
         
     
