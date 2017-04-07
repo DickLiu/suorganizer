@@ -1,0 +1,18 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% block title %}
+{{ block.super }} - Create Blog Post
+{% endblock title %}
+
+{% block content %}
+<div>
+	<div>
+	<form action="{% url 'bog_post_create' %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">
+		Create Blog Post</button>
+		</form>
+	</div>
+</div>
+{% endblock content %}
