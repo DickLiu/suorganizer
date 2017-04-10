@@ -5,12 +5,15 @@ Created on Thu Mar 16 16:28:12 2017
 @author: user
 """
 from django.conf.urls import url
-from .views import (tag_list, tag_detail, startup_list, startup_detail) #relative import
+from .views import (tag_list, tag_detail, startup_list, startup_detail, tag_create) #relative import
 
 urlpatterns = [
     url(r'^tag/$', 
         tag_list, 
-        name='organizer_tag_list'), 
+        name='organizer_tag_list'),
+    url(r'^tag/create/$',
+        tag_create,
+        'organizer_tag_create'),
     url(r'^tag/(?P<slug>[\w\-]+)/$',    
         tag_detail, 
         name = 'organizer_tag_detail'),
