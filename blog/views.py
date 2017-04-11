@@ -1,7 +1,8 @@
-from django.shortcuts import (render, get_object_or_404)
+from django.shortcuts import (render, get_object_or_404, redirect)
 from .models import Post
 from django.views.generic import View
 from django.views.decorators.http import require_http_methods
+from .forms import PostForm
 
 class PostList(View):
     def get(self, request):
@@ -18,3 +19,18 @@ def post_detail(request, year, month, slug):
                              slug = slug)
     return render(request, 'blog/post_detail.html', 
                   {'post':post})
+
+class PostCreate(View):
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+    def post(self, request):
+        bound_form = self.form_class(request.POST)
+        if bound_form.is_valid():
+            new_post = bound_form.save()
+            return redirect(new_post)
+        else:
+            return render(request, self.template_name, {'form':bound_form})
+    def get(self, request):
+        return render(request, template_name, {'form':self.form_class()} )
+        
+    
