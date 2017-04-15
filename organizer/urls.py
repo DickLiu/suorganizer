@@ -9,7 +9,7 @@ from .views import (tag_list, tag_detail,
                     startup_list, startup_detail,
                     TagCreate, StartupCreate, NewsLinkCreate,
                     TagUpdate, StartupUpdate, NewsLinkUpdate,
-                    TagDelete,) #relative import
+                    TagDelete, StartupDelete, NewsLinkDelete) #relative import
 
 urlpatterns = [
     url(r'^tag/$', 

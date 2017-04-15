@@ -17,20 +17,20 @@ urlpatterns=[url(r'^create/$',
                  name='blog_post_list'),
              url(r'^(?P<year>\d{4})/'             
                  r'(?P<month>\d{1,2})/'             
+                 r'(?P<slug>[\w\-]+)/$', 
+                post_detail, 
+                name='blog_post_detail'),
+             url(r'^(?P<year>\d{4})/'             
+                 r'(?P<month>\d{1,2})/'             
                  r'(?P<slug>[\w\-]+)/'
                  r'update/$',
                  PostUpdate.as_view(),
                  name='blog_post_update'),
              url(r'^(?P<year>\d{4})/'             
                  r'(?P<month>\d{1,2})/'             
-                 r'(?P<slug>[\w\-]+)/$'
+                 r'(?P<slug>[\w\-]+)/'
                  r'delete/$',
                  PostDelete.as_view(),
-                 name='blog_post_delete'),
-             url(r'^(?P<year>\d{4})/'             
-                 r'(?P<month>\d{1,2})/'             
-                 r'(?P<slug>[\w\-]+)/$', 
-                post_detail, 
-                name='blog_post_detail'),]
+                 name='blog_post_delete'),]
                 
 

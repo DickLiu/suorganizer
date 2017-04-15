@@ -40,7 +40,7 @@ class Startup(models.Model):
         return reverse('organizer_startup_update',
                        kwargs={'slug':self.slug})
     def get_delete_url(self):
-        reverse('organizer_startup_delete',
+        return reverse('organizer_startup_delete',
                 kwargs={'slug':self.slug})
 
 class NewsLink(models.Model):

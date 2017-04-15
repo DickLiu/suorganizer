@@ -27,13 +27,13 @@ class ObjectUpdateMixin:
     form_class= None
     template_name = ''
     model = None
-    def get(request, self, slug):
+    def get(self,request, slug):
         obj = get_object_or_404(self.model,
                                 slug__iexact=slug)
         context = {'form':self.form_class(instance = obj),
                    self.model.__name__.lower():obj } #because model is being imported so __name__ will return its class name       
         return render(request,
-                      self.templae_name,
+                      self.template_name,
                       context)
     def post(request, self, slug):
         obj = get_object_or_404(self.model,

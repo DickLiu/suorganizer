@@ -1,4 +1,4 @@
-{% extends parent_template|default:"organizer/base_organizer.html" %}
+{% extends parent_template|default:"blog/base_blog.html" %}
 
 {% block title %}
 {{ block.super }} - Create Blog Post
@@ -7,7 +7,7 @@
 {% block content %}
 <div>
 	<div>
-	<form action="{% url 'bog_post_create' %}" method="post">
+	<form action="{% url 'blog_post_create' %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<button type="submit">

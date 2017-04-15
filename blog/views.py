@@ -31,7 +31,7 @@ class PostCreate(View):
         else:
             return render(request, self.template_name, {'form':bound_form})
     def get(self, request):
-        return render(request, template_name, {'form':self.form_class()} )
+        return render(request, self.template_name, {'form':self.form_class()} )
         
 class PostUpdate(View):
     form_class = PostForm
@@ -60,15 +60,15 @@ class PostUpdate(View):
             
 class PostDelete(View):
     template_name ='blog/post_confirm_delete.html'
-    def get(request, self, year, month, slug):
+    def get(self, request , year, month, slug):
         post = get_object_or_404(Post,
                                  pub_date__year = year,
                                  pub_date__month = month,
                                  slug__iexact = slug)
         return render(request,
-                      template_name,
+                      self.template_name,
                       {'post':post})
-    def post(request,  self, year, month slug, ):
+    def post(request,  self, year, month, slug, ):
         post = get_object_or_404(Post,
                                  pub_date__year = year,
                                  pub_date__month = month,
