@@ -27,7 +27,7 @@ class Startup(models.Model):
     founded_date = models.DateField('date founded')
     contact = models.EmailField()
     website = models.URLField(max_length=255)
-    tags = models.ManyToManyField(Tag)    
+    tags = models.ManyToManyField(Tag, blank=True)    
     def __str__(self):
         return self.name        
     class Meta:
@@ -48,12 +48,14 @@ class NewsLink(models.Model):
     pub_date = models.DateField('date published') #'date published'是verbose name
     link = models.URLField(max_length=255)
     startup = models.ForeignKey(Startup)
+    slug = models.SlugField(max_length=63)      
     def __str__(self):
         return "{}:{}".format(self.startup, self.title)
     class Meta:
         verbose_name = 'news article'
         ordering = ['-pub_date'] #只有ordering的作用，沒有getting的作用
         get_latest_by = 'pub_date' #只有getting的作用，沒有ordering的作用
+        unique_together = ('slug', 'startup')
     def get_absolute_url(self):
         return self.startup.get_absolute_url()
     def get_update_url(self):
