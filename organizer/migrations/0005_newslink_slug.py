@@ -7,7 +7,7 @@ from django.db import migrations, models
 SLUG_LENGTH=63
 
 def add_slug_data(apps, schema_editor):
-    NewsLink = apps.get_model('blog', 'NewsLink')
+    NewsLink = apps.get_model('organizer', 'NewsLink')
     query = NewsLink.objects.all()
     for newslink in query:
         expected_slug = slugify(newslink.title)
@@ -24,7 +24,7 @@ def add_slug_data(apps, schema_editor):
     newslink.save()
 
 def remove_slug_data(apps, scheme_editor):
-    NewsLink = apps.get_model('blog', 'NewsLink')
+    NewsLink = apps.get_model('organizer', 'NewsLink')
     NewsLink.objects.update(slug='')
     
 class Migration(migrations.Migration):

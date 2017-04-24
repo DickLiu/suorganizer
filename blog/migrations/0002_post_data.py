@@ -98,7 +98,7 @@ def add_post_data(apps, schema_editor):
     Post = apps.get_model('blog', 'Post')
     Startup = apps.get_model('organizer', 'Startup')
     Tag = apps.get_model('organizer', 'Tag')
-    for post_dict in POST:
+    for post_dict in POSTS:
         post = Post.objects.create(
                title = post_dict['title'],
                slug = post_dict['slug'],

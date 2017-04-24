@@ -37,22 +37,6 @@ STARTUPS = [
         "website": "http://gamecongress.com/",
     },
     {
-        "name": "JamBon Software",
-        "slug": "jambon-software",
-        "contact": "django@jambonsw.com",
-        "description":
-            "JamBon Software is a consulting "
-            "company that specializes in web and "
-            "mobile products. They can carry out "
-            "full end-to-end development of new "
-            "products, or review and advise on "
-            "existing projects. They also offer "
-            "hands-on training in Django.",
-        "founded_date": date(2013, 1, 18),
-        "tags": ["django"],
-        "website": "http://jambonsw.com/",
-    },
-    {
         "name": "Lightning Rod Consulting",
         "slug": "lightning-rod-consulting",
         "contact": "help@lightningrod.com",
@@ -100,14 +84,14 @@ STARTUPS = [
 ]
 
 def add_startup_data(apps, schema_editor ):
-    Startup = apps.get_model('organzier', 'Startup')
-    Tag = apps.get_model('organzier', 'Tag')
+    Startup = apps.get_model('organizer', 'Startup')
+    Tag = apps.get_model('organizer', 'Tag')
     for startup in STARTUPS:
         startup_object = Startup.objects.create(
         name=startup['name'],
         slug=startup['slug'],
         description=startup['description'],
-        founded_data=startup['founded_data'],
+        founded_date=startup['founded_date'],
         contact=startup['contact'],
         website=startup['website'],)
     for tag_slug in startup['tags']:
