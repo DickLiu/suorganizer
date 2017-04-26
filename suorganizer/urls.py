@@ -15,16 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from organizer import urls as organizer_urls
 from blog import urls as blog_urls
 from .views import redirect_root
-#from organizer.views import homepage, tag_detail
-
+from contact import urls as contact_urls
+from organizer.urls import (newslink as newslink_urls,
+                            tag as tag_urls,
+                            startup as startup_urls,)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include(organizer_urls)), #tag/ or startup/
     url(r'^blog/', include(blog_urls) ), # blog_post_list or blog_post_detail
-    url(r'^$', redirect_root), # homepage redirect to blog_post_list
-    
-    
+    url(r'^$', redirect_root),
+    url(r'^contact/', include(contact_urls)),
+    url(r'^tag/', include(tag_urls)),
+    url(r'^startup/', include(startup_urls)),
+    url(r'^newslink/', include(newslink_urls)),    
 ]
