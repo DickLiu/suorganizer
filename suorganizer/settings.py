@@ -129,7 +129,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-SERVER_EMAIL = 'contact@django-unleashed.com'
+SERVER_EMAIL = '495100061dick@gmail.com'
 DEFAULT_FROM_EMAIL = 'no-reply@django-unleashed.com'
 EMAIL_SUBJECT_PREFIX = '[Startup Organizer]'
 MANAGERS = ('Us', 'ourselves@django-unleashed.com')

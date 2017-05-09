@@ -6,11 +6,19 @@ Created on Wed Apr 26 12:38:58 2017
 @author: user
 """
 from django.conf.urls import url
-from ..views import (tag_list, tag_detail, TagCreate,TagUpdate,TagDelete)
+from ..views import (TagList, 
+                     tag_detail, 
+                     TagCreate,
+                     TagUpdate,
+                     TagDelete,
+                     TagPageList)
                      
 urlpatterns = [url(r'^$',
-                  tag_list,
+                  TagList.as_view(),
                   name='organizer_tag_list'),
+              url(r'^(?P<page_number>\d+)/$',
+                  TagPageList.as_view(),
+                  name='organizer_tag_page'),
               url(r'^create/$',
                   TagCreate.as_view(),        
                   name='organizer_tag_create'),

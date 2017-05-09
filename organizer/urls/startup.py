@@ -5,7 +5,7 @@ Created on Wed Apr 26 12:39:24 2017
 @author: user
 """
 from django.conf.urls import url
-from ..views import (startup_list,
+from ..views import (Startup_List,
                      startup_detail,                    
                      StartupCreate,                    
                      StartupUpdate,                    
@@ -15,7 +15,7 @@ urlpatterns = [url(r'^create/$',
                   StartupCreate.as_view(),        
                   name='organizer_startup_create'),    
               url(r'^$',        
-                  startup_list,        
+                  Startup_List.as_view(),        
                   name='organizer_startup_list'),
               url(r'^(?P<slug>[\w\-]+)/$',        
                   startup_detail,        
