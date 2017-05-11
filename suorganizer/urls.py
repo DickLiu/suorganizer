@@ -21,6 +21,7 @@ from contact import urls as contact_urls
 from organizer.urls import (newslink as newslink_urls,
                             tag as tag_urls,
                             startup as startup_urls,)
+from django.contrib.flatpages import urls as flatpages_urls
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include(blog_urls) ), # blog_post_list or blog_post_detail
@@ -28,5 +29,6 @@ urlpatterns = [
     url(r'^contact/', include(contact_urls)),
     url(r'^tag/', include(tag_urls)),
     url(r'^startup/', include(startup_urls)),
-    url(r'^newslink/', include(newslink_urls)),    
+    url(r'^newslink/', include(newslink_urls)),
+    url(r'^page', include(flatpages_urls)),    
 ]
