@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^tag/', include(tag_urls)),
     url(r'^startup/', include(startup_urls)),
     url(r'^newslink/', include(newslink_urls)),
+    url(r'^', include(flatpages_urls)),    
 ]
