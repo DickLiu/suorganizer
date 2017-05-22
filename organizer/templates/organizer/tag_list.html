@@ -4,51 +4,67 @@
 {{ block.super }} - Tag List
 {% endblock %}
 
-{% block content %}
-<h2>Tag List</h2>
-<div>
-	<a href="{% url 'organizer_tag_create' %}">
-	Create New Tag</a>
-</div>
-<ul>
-{% for tag in tag_list %}
-    <li>
-    <a href="{{ tag.get_absolute_url }}">
-        {{ tag.name|title }}
-        </a>
-		<ul>
-			<li>
-			<a href="{{ tag.get_update_url }}">
-				Edit Tag</a>
-			</li>
-			<li>
-			<a href="{{ tag.get_delete_url }}">
-				Delete Tag</a>
-			</li>
-		</ul>
-    </li>
+{% block create_button %}
+    <a
+       href="{% url 'organizer_tag_create' %}"
+       class="button button-primary">
+    Create New Tag</a>
+{% endblock create_button %}
+
+{% block org_content %}
+    <h2>Tag List</h2>
+        <div class="mobile">
+            <a
+            href="{% url 'organizer_tag_create' %}"
+            class="button button-primary">
+	       Create New Tag</a>
+        </div>
+
+    <ul>
+    {% for tag in tag_list %}
+        <li>
+        <a href="{{ tag.get_absolute_url }}">
+            {{ tag.name|title }}
+            </a>
+            <ul class="inline">
+                <li>
+                <a 
+                   href="{{ tag.get_update_url }}"
+                   class="button">
+                    Edit Tag</a>
+                </li>
+                <li>
+                <a 
+                   href="{{ tag.get_delete_url }}"
+                   class="button">
+                    Delete Tag</a>
+                </li>
+            </ul>
+        </li>
+{% endblock org_content %}
 {% empty %}
     <li><em>There are currently no Tags available.</li></p>
 {% endfor %}
 </ul>
 
-{% if is_paginated %}
-	<ul>
-    {% if previous_page_url %}
-		<li>
-		<a href="{{ previous_page_url }}">
-			Previous</a>
-		</li>
-	{% endif %}
-	<li>
-	Page {{ tag_list.number }} of {{ paginator.num_pages }}	
-	</li>
-	{% if next_page_url %}
-		<li>
-		<a href="{{ next_page_url }}">
-			Next</a>
-		</li>
-		{% endif %}
-	</ul>
-{% endif %}
-{% endblock %}
+{% block content_footer %}
+    {% if is_paginated %}
+    <ul class="pagination">
+        {% if previous_page_url %}
+            <li>
+            <a href="{{ previous_page_url }}">
+                Previous</a>
+            </li>
+        {% endif %}
+            <li>
+            Page {{ tag_list.number }} of {{ paginator.num_pages }}	
+            </li>
+        {% if next_page_url %}
+            <li>
+            <a href="{{ next_page_url }}">
+                Next</a>
+            </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+{% endblock content_footer %}

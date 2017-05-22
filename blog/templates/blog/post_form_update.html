@@ -4,12 +4,14 @@
 {% endblock title %}
 
 {% block content %}
-<div>
-	<div>
+<div class="row">
+	<div class="offset-by-two eight columns">
 	<form action="{{ post.get_update_url }}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<button type="submit">Update Blog Post</button>
+		<button 
+        class="button-primary"
+        type="submit">Update Blog Post</button>
 		</form>
 	</div>
 </div>
