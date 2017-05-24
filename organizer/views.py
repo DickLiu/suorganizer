@@ -5,7 +5,10 @@ from .models import  (Tag, Startup, NewsLink)
 from django.shortcuts import (get_object_or_404, render, redirect)
 from .forms import (TagForm, StartupForm, NewsLinkForm)
 from django.views.generic import View
-from .utils import (ObjectCreateMixin, ObjectUpdateMixin, ObjectDeleteMixin)
+from .utils import (ObjectCreateMixin, 
+                    ObjectUpdateMixin, 
+                    ObjectDeleteMixin,
+                    DetailView)
 from django.core.paginator import (Paginator, PageNotAnInteger, EmptyPage)
 # Create your views here.
 
@@ -54,14 +57,10 @@ class TagPageList(View):
         return render(request, self.template_name,
                       context)
         
+class TagDetail(DetailView):
+    model = Tag
         
-    
-def tag_detail(request, slug):
-    tag = get_object_or_404(Tag, slug__iexact=slug) #replace try...except block
-    return render(request, 'organizer/tag_detail.html', {'tag':tag}) #replace render_to_response method
-   
-        
-class Startup_List(View):
+class StartupList(View):
     page_kwarg = 'page'    
     paginate_by = 5
     template_name = 'organizer/startup_list.html'
@@ -98,12 +97,8 @@ class Startup_List(View):
                       self.template_name,
                       context)
     
-def startup_detail(request, slug):
-    startup = get_object_or_404(
-        Startup, slug__iexact=slug)
-    return render(request, 
-    'organizer/startup_detail.html',
-    {'startup':startup})
+class StartupDetail(DetailView):
+    model = Startup
 
 class StartupCreate(ObjectCreateMixin, View):
     form_class = StartupForm

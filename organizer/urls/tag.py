@@ -7,7 +7,7 @@ Created on Wed Apr 26 12:38:58 2017
 """
 from django.conf.urls import url
 from ..views import (TagList, 
-                     tag_detail, 
+                     TagDetail, 
                      TagCreate,
                      TagUpdate,
                      TagDelete,
@@ -23,7 +23,7 @@ urlpatterns = [url(r'^$',
                   TagCreate.as_view(),        
                   name='organizer_tag_create'),
               url(r'^(?P<slug>[\w\-]+)/$',
-                  tag_detail,
+                  TagDetail.as_view(),
                   name = 'organizer_tag_detail'),
               url(r'^(?P<slug>[\w\-]+)/update/$',
                   TagUpdate.as_view(),

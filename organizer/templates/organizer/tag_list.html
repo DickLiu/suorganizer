@@ -41,11 +41,11 @@
                 </li>
             </ul>
         </li>
-{% endblock org_content %}
 {% empty %}
     <li><em>There are currently no Tags available.</li></p>
 {% endfor %}
 </ul>
+{% endblock org_content %}
 
 {% block content_footer %}
     {% if is_paginated %}
