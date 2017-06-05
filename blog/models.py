@@ -2,6 +2,7 @@ from django.db import models
 from organizer.models import Startup, Tag
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 
@@ -34,3 +35,13 @@ class Post(models.Model):
                 kwargs={'year':self.pub_date.year,
                         'month':self.pub_date.month,
                         'slug':self.slug})
+    def get_archive_year_url(self):
+        return reverse(
+                'blog_post_archive_year',
+                kwargs={'year':self.pub_date.year})
+    def get_archive_month_url(self):
+        return reverse(
+                'blog_post_archive_month',
+                kwargs={'year':self.pub_date.year,
+                        'month':self.pub_date.month})
+                        

@@ -4,11 +4,12 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from .models import  (Tag, Startup, NewsLink)
 from django.shortcuts import (get_object_or_404, render, redirect)
 from .forms import (TagForm, StartupForm, NewsLinkForm)
-from django.views.generic import View
-from .utils import (ObjectCreateMixin, 
-                    ObjectUpdateMixin, 
-                    ObjectDeleteMixin,
-                    DetailView)
+from django.views.generic import (View, 
+                                  DetailView,
+                                  CreateView,
+                                  DeleteView,
+                                  UpdateView,)
+
 from django.core.paginator import (Paginator, PageNotAnInteger, EmptyPage)
 # Create your views here.
 
@@ -98,21 +99,22 @@ class StartupList(View):
                       context)
     
 class StartupDetail(DetailView):
+    form_class = StartupForm
     model = Startup
 
-class StartupCreate(ObjectCreateMixin, View):
+class StartupCreate(CreateView):
     form_class = StartupForm
-    template_name = 'organizer/startup_form.html'
+    model = Startup
             
-class NewsLinkCreate(ObjectCreateMixin, View):
+class NewsLinkCreate(CreateView):
     form_class = NewsLinkForm
-    template_name = 'organizer/newlink_form.html'
+    model = NewsLink
 
-class TagCreate(ObjectCreateMixin, View):
+class TagCreate(CreateView):
     form_class = TagForm
-    template_name = 'organizer/tag_form.html'
+    model = Tag
     
-class NewsLinkUpdate(View):
+class NewsLinkUpdate(UpdateView):
     form_class  = NewsLinkForm
     template_name = 'organizer/newslink_form_update.html'
     def get(self, request, pk):
@@ -138,40 +140,42 @@ class NewsLinkUpdate(View):
                           self.template_name,
                           context)
                           
-class TagUpdate(ObjectUpdateMixin, View):
+class TagUpdate(UpdateView):
     form_class = TagForm
     template_name = 'organizer/tag_form_update.html'
     model = Tag
     
-class StartupUpdate(ObjectUpdateMixin, View):
+class StartupUpdate(UpdateView):
     form_class = StartupForm
     template_name= 'organizer/startup_form_update.html'
     model = Startup
     
-class NewsLinkDelete(View):
-    template_name = 'organzier/newslink_confirm_delete.html'
-    def get(self, pk):
-        newslink = get_object_or_404(NewsLink,
-                                     pk = pk)
-        return render(request, 
-                      template_name,
-                      {'newslink':newslink})
-    def post(self, pk):
-        newslink = get_object_or_404(NewsLink,
-                                     pk = pk)
-        startup = newslink.startup
-        newslink.delete()
-        return redirect(startup)
+class NewsLinkDelete(DeleteView):
+    model = NewsLink
+    def get_success_url(self):
+        return (self.object.startup
+                .get_absolute_url())
 
-class TagDelete(ObjectDeleteMixin, View):
-    template_name = 'organizer/tag_confirm_delete.html'
+class TagDelete(DeleteView):
     model = Tag
     success_url = reverse_lazy('organizer_tag_list') 
     #因為此時Django尚未載入urlconf，使用reverse()會出錯
-class StartupDelete(ObjectDeleteMixin, View):
-    template_name = 'organizer/startup_confirm_delete.html'
+    
+class StartupDelete(DeleteView):
     model = Startup
     success_url = reverse_lazy('organizer_startup_list')
+
+def model_list(request, model):
+    context_object_name = '{}_list'.format(
+        model._meta.model_name)
+    context={
+        context_object_name:model.objects.all(),}
+    template_name=(
+        'organizer/{}_list.html'.format(
+            model._meta.model_name))
+    return render(
+        request, template_name, context)
+    
     
     
     

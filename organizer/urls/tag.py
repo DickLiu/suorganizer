@@ -11,10 +11,13 @@ from ..views import (TagList,
                      TagCreate,
                      TagUpdate,
                      TagDelete,
-                     TagPageList)
+                     TagPageList,
+                     model_list)
+from ..models import Tag
                      
 urlpatterns = [url(r'^$',
-                  TagList.as_view(),
+                  model_list,
+                  {'model':Tag},
                   name='organizer_tag_list'),
               url(r'^(?P<page_number>\d+)/$',
                   TagPageList.as_view(),

@@ -1,6 +1,4 @@
 {% load staticfiles %}
-{% load flatpages %}
-{% get_flatpages as flatpages %}
 <!DOCYPE html>
 <html lang="en">
     <head>
@@ -30,6 +28,9 @@
             <nav>
                 <ul>
                     <li>
+                    <a href="{% url 'about_site' %}">
+                        About</a></li>
+                    <li>
                     <a href="{% url 'blog_post_list' %}">
                         Blog</a>
                     </li>
@@ -43,11 +44,6 @@
 					<li>
 					<a href="{% url 'contact' %}">Contact</a>
 					</li>
-					{% for page in flatpages %}
-					<li>
-					<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-					</li>
-					{% endfor %}
                 </ul>
             </nav>
 			{% if messages %}

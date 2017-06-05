@@ -1,9 +1,10 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 class Tag(models.Model):
-    name = models.CharField(max_length=31)
+    name = models.CharField(max_length=31, verbose_name=_('name'))
     slug = models.SlugField(max_length=31,unique=True,help_text='A label for URL config.')    
     def __str__(self):
         return self.name.title()        
@@ -21,13 +22,13 @@ class Tag(models.Model):
     
 
 class Startup(models.Model):
-    name = models.CharField(max_length=31, unique=True)
+    name = models.CharField(max_length=31, unique=True, verbose_name=_('name'))
     slug = models.SlugField(unique=True, help_text='A label for URL config.')
-    description = models.TextField()
-    founded_date = models.DateField('date founded')
-    contact = models.EmailField()
-    website = models.URLField(max_length=255)
-    tags = models.ManyToManyField(Tag, blank=True)    
+    description = models.TextField(verbose_name=_('description'))
+    founded_date = models.DateField(verbose_name=_('date founded'))
+    contact = models.EmailField(verbose_name=_('contact'))
+    website = models.URLField(max_length=255, verbose_name=_('web site'))
+    tags = models.ManyToManyField(Tag, blank=True, verbose_name=_('tags'))    
     def __str__(self):
         return self.name        
     class Meta:
@@ -44,9 +45,9 @@ class Startup(models.Model):
                 kwargs={'slug':self.slug})
 
 class NewsLink(models.Model):
-    title = models.CharField(max_length=63)
-    pub_date = models.DateField('date published') #'date published'是verbose name
-    link = models.URLField(max_length=255)
+    title = models.CharField(max_length=63, verbose_name=_('title'))
+    pub_date = models.DateField(verbose_name=_('date published')) #'date published'是verbose name
+    link = models.URLField(max_length=255,verbose_name=_('link'))
     startup = models.ForeignKey(Startup)
     slug = models.SlugField(max_length=63)      
     def __str__(self):
