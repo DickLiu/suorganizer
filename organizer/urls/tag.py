@@ -11,7 +11,6 @@ from ..views import (TagList,
                      TagCreate,
                      TagUpdate,
                      TagDelete,
-                     TagPageList,
                      model_list)
 from ..models import Tag
                      
@@ -19,9 +18,6 @@ urlpatterns = [url(r'^$',
                   model_list,
                   {'model':Tag},
                   name='organizer_tag_list'),
-              url(r'^(?P<page_number>\d+)/$',
-                  TagPageList.as_view(),
-                  name='organizer_tag_page'),
               url(r'^create/$',
                   TagCreate.as_view(),        
                   name='organizer_tag_create'),

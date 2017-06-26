@@ -8,95 +8,23 @@ from django.views.generic import (View,
                                   DetailView,
                                   CreateView,
                                   DeleteView,
-                                  UpdateView,)
-
+                                  ListView,)
+from core.utils import UpdateView
+from .utils import PageLinksMixin
 from django.core.paginator import (Paginator, PageNotAnInteger, EmptyPage)
 # Create your views here.
 
-class TagList(View):
-    template_name='organizer/tag_list.html'
-    def get(self, request):
-        tags = Tag.objects.all()
-        context = {'tag_list':tags}
-        return render(request, 
-                      self.template_name, 
-                      context)
-
-class TagPageList(View):
+class TagList(ListView, PageLinkMixin):
     paginate_by = 5
-    template_name='organizer/tag_list.html'
-    def get(self, request, page_number):
-        tags = Tag.objects.all()
-        paginator = Paginator(tags, self.paginate_by)
-        try:
-            page = paginator.page(page_number)
-        except PageNotAnInteger:
-            page = paginator.page(1)
-        except EmptyPage:
-            page = paginator.page(
-            paginator.num_pages)
-        if page.has_previous():
-            prev_url = reverse(
-            'organizer_tag_page',
-            args=(page.previous_page_number(),
-                  ))
-        else:
-            prev_url = None
-        if page.has_next():
-            next_url = reverse(
-            'organizer_tag_page',
-            args=(page.next_page_number(),
-                  ))
-        else:
-            next_url = None
-        context ={
-        'is_paginated':page.has_other_pages(),
-        'next_page_url':next_url,
-        'paginator':paginator,
-        'previous_page_url':prev_url,
-        'tag_list':page}
-        return render(request, self.template_name,
-                      context)
+    model = Tag
         
 class TagDetail(DetailView):
     model = Tag
         
-class StartupList(View):
-    page_kwarg = 'page'    
+class StartupList(ListView, PageLinksMixin):
+    model = Startup
     paginate_by = 5
-    template_name = 'organizer/startup_list.html'
-    def get(self, request):
-        startups = Startup.objects.all()
-        paginator = Paginator(startups,
-                              self.paginate_by)
-        page_number = request.GET.get(self.page_kwarg)
-        try:
-            page = paginator.page(page_number)
-        except PageNotAnInteger:
-            page = paginator.page(1)
-        except EmptyPage:
-            page = paginator.page(paginator.num_pages)
-        if page.has_previous():
-            prev_url = '?{pkw}={n}'.format(
-            pkw=self.page_kwarg,
-            n=page.previous_page_number())
-        else:
-            prev_url = None
-        if page.has_next():
-            next_url = '?{pkw}={n}'.format(
-            pkw=self.page_kwarg,
-            n=page.next_page_number())
-        else:
-            next_url = None
-        context = {
-        'startup_list':page,
-        'paginator':paginator,
-        'is_paginated':page.has_other_pages(),
-        'next_page_url':next_url,
-        'previous_page_url':prev_url}
-        return render(request,
-                      self.template_name,
-                      context)
+    
     
 class StartupDetail(DetailView):
     form_class = StartupForm
@@ -116,38 +44,18 @@ class TagCreate(CreateView):
     
 class NewsLinkUpdate(UpdateView):
     form_class  = NewsLinkForm
-    template_name = 'organizer/newslink_form_update.html'
-    def get(self, request, pk):
-        newslink = get_object_or_404(NewsLink,
-                                     pk=pk)
-        context = {'form':self.form_class(instance=newslink),
-                   'newslink':newslink,}
-        return render(request,
-                      self.template_name,
-                      context)
-    def post(self, request, pk):
-        newslink = get_object_or_404(NewsLink,
-                                     pk=pk)
-        bound_form = self.form_class(request.POST,
-                                     instance=newslink)
-        if bound_form.is_valid():
-            new_newslink = bound_form.save()
-            return redirect(new_newslink)
-        else:
-            context = {'form':bound_form,
-                       'newslink':newslink,}
-            return render(request,
-                          self.template_name,
-                          context)
+    model = NewsLink
+    template_name_suffix = '_form_update'
+
                           
 class TagUpdate(UpdateView):
     form_class = TagForm
-    template_name = 'organizer/tag_form_update.html'
+    template_name_suffix = '_form_update'
     model = Tag
     
 class StartupUpdate(UpdateView):
     form_class = StartupForm
-    template_name= 'organizer/startup_form_update.html'
+    template_name_suffix= '_form_update'
     model = Startup
     
 class NewsLinkDelete(DeleteView):
