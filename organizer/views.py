@@ -14,14 +14,15 @@ from .utils import PageLinksMixin
 from django.core.paginator import (Paginator, PageNotAnInteger, EmptyPage)
 # Create your views here.
 
-class TagList(ListView, PageLinkMixin):
+class TagList(PageLinkMixin,ListView):
     paginate_by = 5
     model = Tag
-        
+print(TagList, __mro__)
+
 class TagDetail(DetailView):
     model = Tag
         
-class StartupList(ListView, PageLinksMixin):
+class StartupList(PageLinkMixin,ListView):
     model = Startup
     paginate_by = 5
     

@@ -3,9 +3,9 @@ from .models import Post
 from django.views.generic import (View,
                                   ArchiveIndexView,
                                   CreateView,
+                                  DateDetailView,
                                   YearArchiveView,
                                   MonthArchiveView)
-from django.views.decorators.http import require_http_methods
 from .forms import PostForm
 
 class PostList(ArchiveIndexView):
@@ -18,14 +18,18 @@ class PostList(ArchiveIndexView):
     paginate_by = 5
     template_name = 'blog/post_list.html'
 
-@require_http_methods(['HEAD','GET'])
-def post_detail(request, year, month, slug):
-    post = get_object_or_404(Post,
-                             pub_date__year = year,
-                             pub_date__month = month,
-                             slug = slug)
-    return render(request, 'blog/post_detail.html', 
-                  {'post':post})
+class PostDetail(DateDetailView):
+    date_field = 'pub_date'
+    model = Post
+    month_format = '%m'
+    
+    def get_day(self):
+        return '1'
+    
+    def _make_single_date_lookup(self, date):
+        date_field = self.get_date_field()
+        return {date_field + '__year':date.year,
+                date_field + '__month':date.month,}
 
 class PostCreate(CreateView):
     form_class = PostForm

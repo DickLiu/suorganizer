@@ -5,7 +5,7 @@ Created on Mon Mar 20 15:53:26 2017
 @author: user
 """
 from django.conf.urls import url
-from .views import (PostList, post_detail,
+from .views import (PostList, PostDetail,
                     PostCreate, PostUpdate,
                     PostDelete, PostArchiveYear,
                     PostArchiveMonth)
@@ -17,9 +17,10 @@ urlpatterns=[url(r'^create/$',
                  PostList.as_view(),
                  name='blog_post_list'),
              url(r'^(?P<year>\d{4})/'             
-                 r'(?P<month>\d{1,2})/'             
+                 r'(?P<month>\d{1,2})/' 
+                 r'(?P<day>\d{1,2})/'
                  r'(?P<slug>[\w\-]+)/$', 
-                post_detail, 
+                PostDeatil.as_view(), 
                 name='blog_post_detail'),
             url(r'^(?P<year>\d{4})/$',
                 PostArchiveYear.as_view(),
