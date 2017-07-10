@@ -1,6 +1,5 @@
 from django.shortcuts import (render, get_object_or_404, redirect)
 from django.core.urlresolvers import reverse_lazy
-from .models import Post
 from django.views.generic import (View,
                                   ArchiveIndexView,
                                   CreateView,
@@ -8,9 +7,13 @@ from django.views.generic import (View,
                                   YearArchiveView,
                                   MonthArchiveView,
                                   DetailView,)
-from .utils import PostGetMixin
-from .forms import PostForm
+
 from core.utils import UpdateView
+
+from .utils import DateObjectMixin
+from .forms import PostForm
+from .models import Post
+
 
 
 class PostList(ArchiveIndexView):
@@ -23,21 +26,26 @@ class PostList(ArchiveIndexView):
     paginate_by = 5
     template_name = 'blog/post_list.html'
 
-class PostDetail(PostGetMixin, DetailView):
+class PostDetail(DateObjectMixin, DetailView):
+    allow_future = True
+    date_field = 'pub_date'
     model = Post
     
 class PostCreate(CreateView):
     form_class = PostForm
     model = Post
         
-class PostUpdate(PostGetMixin, UpdateView):
+class PostUpdate(DateObjectMixin, UpdateView):
+    allow_future = True
+    date_field = 'pub_date'    
     form_class = PostForm
     model = Post
             
-class PostDelete(PostGetMixin, DeleteView):
+class PostDelete(DateObjectMixin, DeleteView):
+    allow_future = True
+    date_field = 'pub_date'    
     model = Post
     success_url = reverse_lazy('blog_post_list')
-
 
 class PostArchiveYear(YearArchiveView):
     model = Post
