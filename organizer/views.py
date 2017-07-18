@@ -13,6 +13,9 @@ from core.utils import UpdateView
 
 from .utils import (PageLinksMixin,
                     NewsLinkGetObjectMixin,
+                    NewsLinkFormMixin,
+                    StartupContextMixin,
+                    PageLinksMixin,
                     StartupContextMixin,)
 from .models import  (Tag, Startup, NewsLink)
 from .forms import (TagForm, StartupForm, NewsLinkForm)
