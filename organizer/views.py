@@ -31,7 +31,7 @@ def model_list(request, model):
     return render(
         request, template_name, context)
     
-class TagList(PageLinkMixin,ListView):
+class TagList(PageLinksMixin,ListView):
     paginate_by = 5
     model = Tag
 
@@ -52,7 +52,7 @@ class TagDelete(DeleteView):
     success_url = reverse_lazy('organizer_tag_list') 
     #因為此時Django尚未載入urlconf，使用reverse()會出錯
         
-class StartupList(PageLinkMixin,ListView):
+class StartupList(PageLinksMixin,ListView):
     model = Startup
     paginate_by = 5    
     

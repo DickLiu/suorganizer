@@ -32,10 +32,6 @@ class StartupForm(SlugCleanMixin, forms.ModelForm):
     class Meta:
         model = Startup
         exclude = ('startup',)
-    
-    def save(self, **kwargs):
-        startup_obj = kwargs.get('startup_obj', None)
-        if startup_obj is not None:
             
 
     
