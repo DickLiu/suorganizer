@@ -6,7 +6,8 @@ from django.views.generic import (View,
                                   DateDetailView,
                                   YearArchiveView,
                                   MonthArchiveView,
-                                  DetailView,)
+                                  DetailView,
+                                  DeleteView)
 
 from core.utils import UpdateView
 

@@ -74,6 +74,7 @@ class StartupDelete(DeleteView):
     success_url = reverse_lazy('organizer_startup_list')
             
 class NewsLinkCreate(
+        NewsLinkFormMixin,
         NewsLinkGetObjectMixin,
         StartupContextMixin,
         CreateView):
@@ -81,17 +82,17 @@ class NewsLinkCreate(
     model = NewsLink
     
 class NewsLinkUpdate(
+        NewsLinkFormMixin,
         NewsLinkGetObjectMixin,
         StartupContextMixin,
         UpdateView,):
     form_class  = NewsLinkForm
     model = NewsLink
     slug_url_kwarg = 'newslink_slug'
-    template_name_suffix = '_form_update'
         
-class NewsLinkDelete(
-        DeleteView,
-        StartupContextMixin,):
+class NewsLinkDelete(        
+        StartupContextMixin,
+        DeleteView,):
     model = NewsLink
     slug_url_kwarg = 'newslink_slug'
     

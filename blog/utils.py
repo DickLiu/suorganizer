@@ -86,7 +86,7 @@ class DateObjectMixin(
             return {
                     '%s__gte' % date_field: date,
                     '%s__lt' % date_field:
-                        self,_get_next_month(date),
+                    self._get_next_month(date),
                     }
         
         

@@ -20,7 +20,7 @@ urlpatterns=[url(r'^create/$',
                  r'(?P<month>\d{1,2})/' 
                  r'(?P<day>\d{1,2})/'
                  r'(?P<slug>[\w\-]+)/$', 
-                PostDeatil.as_view(), 
+                PostDetail.as_view(), 
                 name='blog_post_detail'),
             url(r'^(?P<year>\d{4})/$',
                 PostArchiveYear.as_view(),
