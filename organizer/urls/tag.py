@@ -15,8 +15,7 @@ from ..views import (TagList,
 from ..models import Tag
                      
 urlpatterns = [url(r'^$',
-                  model_list,
-                  {'model':Tag},
+                  TagList.as_view(),
                   name='organizer_tag_list'),
               url(r'^create/$',
                   TagCreate.as_view(),        
