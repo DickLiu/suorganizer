@@ -11,8 +11,7 @@ from django.views.generic import (View,
 
 from core.utils import UpdateView
 
-from .utils import (PageLinksMixin,
-                    NewsLinkGetObjectMixin,
+from .utils import (NewsLinkGetObjectMixin,
                     NewsLinkFormMixin,
                     StartupContextMixin,
                     PageLinksMixin,
