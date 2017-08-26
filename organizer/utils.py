@@ -57,12 +57,17 @@ class StartupContextMixin():
     startup_context_object_name = 'startup'
     
     def get_context_data(self, **kwargs):
-        startup_slug = self.kwargs.get(
+        if hasattr(self, 'startup'):
+            context  = {
+                    self.startup_context_object_name:
+                        self.startup,}
+        else:
+            startup_slug = self.kwargs.get(
                 self.startup_slug_url_kwarg)
-        startup = get_object_or_404(
+            startup = get_object_or_404(
                 Startup, 
                 slug__iexact=startup_slug)
-        context = {
+            context = {
                 self.startup_context_object_name:
                     startup,
                     }
@@ -80,16 +85,3 @@ class NewsLinkGetObjectMixin():
                 slug__iexact=newslink_slug,
                 startup__slug__iexact=startup_slug)
 
-class NewsLinkFormMixin():
-    
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        if self.request.method in ('POST', 'PUT'):
-            self.startup = get_object_or_404(
-                    Startup,
-                    slug__iexact=self.kwargs.get(
-                            self.startup_slug_url_kwarg))
-            data = kwargs['data'].copy()
-            data.update({'startup':self.startup})
-            kwargs['data'] = data
-        return kwargs

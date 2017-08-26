@@ -89,7 +89,7 @@
             <section class="meta offset-by-two two-thirds column">
         {% endif %}
                 
-    <h3>Blog Post{{startup.blog_post.count|pluralize}}</h3>
+    <h3>Blog Post{{startup.blog_posts.count|pluralize}}</h3>
         <ul>
         {% for post in startup.blog_posts.all %}
             <li>
@@ -100,7 +100,7 @@
         </ul>
     </section>
     {% endif %}
-</div>
+</section></section></div>
 {% endif %}
 </article>                
 {% endblock content %}

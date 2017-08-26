@@ -12,7 +12,6 @@ from django.views.generic import (View,
 from core.utils import UpdateView
 
 from .utils import (NewsLinkGetObjectMixin,
-                    NewsLinkFormMixin,
                     StartupContextMixin,
                     PageLinksMixin,
                     StartupContextMixin,)
@@ -73,15 +72,24 @@ class StartupDelete(DeleteView):
     success_url = reverse_lazy('organizer_startup_list')
             
 class NewsLinkCreate(
-        NewsLinkFormMixin,
         NewsLinkGetObjectMixin,
         StartupContextMixin,
         CreateView):
     form_class = NewsLinkForm
     model = NewsLink
     
+    def get_initial(self):
+        startup_slug = self.kwargs.get(
+                self.startup_slug_url_kwarg)
+        self.startup = get_object_or_404(
+                Startup, slug__iexact=startup_slug)
+        initial = {
+                self.startup_context_object_name:
+                    self.startup,}
+        initial.update(self.initial)
+        return initial
+    
 class NewsLinkUpdate(
-        NewsLinkFormMixin,
         NewsLinkGetObjectMixin,
         StartupContextMixin,
         UpdateView,):
