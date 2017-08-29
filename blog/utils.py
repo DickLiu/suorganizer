@@ -72,10 +72,13 @@ class DateObjectMixin(
                 queryset=queryset)
         
     def _make_single_date_lookup(self, date):
+        #取得用來查詢過濾日期的kwargs
         date_field = self.get_date_field()
         if self.uses_datetime_field:
             since = self._make_date_lookup_arg(
                     date)
+            #_make_date_lookup_arg()是當date如果是以datetimefield
+            #儲存時會適當的設定其時區
             until = self._make_date_lookup_arg(
                     self._get_next_month(date))
             return {

@@ -38,8 +38,8 @@ urlpatterns = [url(r'^create/$',
                   r'update/$',
                   NewsLinkUpdate.as_view(),
                   name='organizer_newslink_update'),
-              url(r'^(?P<startup_slug>)[\w\-]+/'
-                  r'(?P<newslink_slug>)[\w\-]+/'
+              url(r'^(?P<startup_slug>[\w\-]+)/'
+                  r'(?P<newslink_slug>[\w\-]+)/'
                   r'delete/$',
                   NewsLinkDelete.as_view(),
                   name='organizer_newslink_delete'),]

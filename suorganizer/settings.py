@@ -88,6 +88,45 @@ DATABASES = {
 }
 
 
+# Logging
+# https://docs.djangoproject.com/en/1.8/topics/logging/
+
+from .log_filters import ManagementFilter
+
+verbose = (
+        "[%(asctime)s] %(levelname)s"
+        "[%(name)s:%(lineno)s]%(message)s"
+        )
+
+LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'filters' : {
+                'remove_migration_sql': {
+                    '()': ManagementFilter,},
+                },
+        'handlers': { 
+                'console': {
+                        'filters': ['remove_migration_sql'],
+                        'class': 'logging.StreamHandler',
+                },
+        },
+        'formatters': {
+                'verbose':{
+                        'format': verbose,
+                        'datefmt': "%Y-%b-%d %H:%M:%S"
+                },
+        },
+        'loggers':{
+                'django': {
+                        'handlers': ['console'],
+                        'level': 'DEBUG',
+                        'formatter': 'verbose',
+                },
+        },
+ }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
