@@ -47,14 +47,14 @@ INSTALLED_APPS = [
     ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'suorganizer.urls'
@@ -91,6 +91,11 @@ DATABASES = {
 
 # Logging
 # https://docs.djangoproject.com/en/1.8/topics/logging/
+from django.core.urlresolvers import reverse_lazy
+
+LOGIN_REDIRECT_URL = reverse_lazy('blog_post_list')
+LOGIN_URL = reverse_lazy('dj-auth:login')
+LOGOUT_URL = reverse_lazy('dj-auth:logout')
 
 from .log_filters import ManagementFilter
 

@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.contrib.auth import urls as auth_urls
+
 from blog import urls as blog_urls
 from contact import urls as contact_urls
 from organizer.urls import (tag as tag_urls,
                             startup as startup_urls,)
+from user import urls as user_urls
+
 from django.views.generic import RedirectView, TemplateView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include(blog_urls) ), # blog_post_list or blog_post_detail
@@ -33,5 +36,8 @@ urlpatterns = [
     url(r'^about/$', TemplateView.as_view(
         template_name='site/about.html'),
         name='about_site', ),
-    url(r'^user/', include(auth_urls)),
+    url(r'^user/', include(
+            user_urls,
+            app_name='user',
+            namespace='dj-auth')),
 ]
