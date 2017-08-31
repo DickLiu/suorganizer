@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth import urls as auth_urls
 from blog import urls as blog_urls
 from contact import urls as contact_urls
 from organizer.urls import (tag as tag_urls,
@@ -31,5 +32,6 @@ urlpatterns = [
     url(r'^startup/', include(startup_urls)),
     url(r'^about/$', TemplateView.as_view(
         template_name='site/about.html'),
-        name='about_site', )   
+        name='about_site', ),
+    url(r'^user/', include(auth_urls)),
 ]
