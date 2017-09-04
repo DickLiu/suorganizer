@@ -24,9 +24,9 @@
                 <div class='status row'>
                     <ul class='inline'>
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'dj-auth:logout' %}">Log Out</a></li>
+                        <li><a href="{% url 'dj-auth:logout' %}?next={{ request.path }}">Log Out</a></li>
                     {% else %}
-                        <li><a href="{% url 'dj-auth:login' %}">Log In</a>
+                        <li><a href="{% url 'dj-auth:login' %}?next={{ request.path }">Log In</a>
                     {% endif %}
                     </ul>
                 </div>   
