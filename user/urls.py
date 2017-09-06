@@ -26,7 +26,7 @@ urlpatterns = [
             auth_views.logout,
             {'template_name': 
                 'user/logged_out.html',
-             'extra_content':
+             'extra_context':
                  {'form': AuthenticationForm}},
              name='logout'),
 ]

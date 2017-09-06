@@ -8,7 +8,8 @@ from django.views.generic import (View,
                                   CreateView,
                                   DeleteView,
                                   ListView,)
-
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
 from core.utils import UpdateView
 
 from .utils import (NewsLinkGetObjectMixin,
@@ -39,6 +40,13 @@ class TagDetail(DetailView):
 class TagCreate(CreateView):
     form_class = TagForm
     model = Tag
+    
+    @method_decorator(permission_required(
+                        'organizer.add_tag',
+                        raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(
+                request, *args, **kwargs)
     
 class TagUpdate(UpdateView):
     form_class = TagForm
