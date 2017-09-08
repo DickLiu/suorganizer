@@ -8,7 +8,10 @@ from django.views.generic import (View,
                                   CreateView,
                                   DeleteView,
                                   ListView,)
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import (
+                                  login_required,
+                                  permission_required)
+from django.contrib.auth import PermissionDenied
 from django.utils.decorators import method_decorator
 from core.utils import UpdateView
 
@@ -18,6 +21,7 @@ from .utils import (NewsLinkGetObjectMixin,
                     StartupContextMixin,)
 from .models import  (Tag, Startup, NewsLink)
 from .forms import (TagForm, StartupForm, NewsLinkForm)
+from user.decorators import custom_login_required
 
 def model_list(request, model):
     context_object_name = '{}_list'.format(
@@ -36,14 +40,12 @@ class TagList(PageLinksMixin,ListView):
 
 class TagDetail(DetailView):
     model = Tag
-    
+
 class TagCreate(CreateView):
     form_class = TagForm
     model = Tag
     
-    @method_decorator(permission_required(
-                        'organizer.add_tag',
-                        raise_exception=True))
+    @method_decorator(custom_login_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(
                 request, *args, **kwargs)
