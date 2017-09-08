@@ -8,9 +8,7 @@ from django.views.generic import (View,
                                   CreateView,
                                   DeleteView,
                                   ListView,)
-from django.contrib.auth.decorators import (
-                                  login_required,
-                                  permission_required)
+
 from django.contrib.auth import PermissionDenied
 from django.utils.decorators import method_decorator
 from core.utils import UpdateView
@@ -21,7 +19,9 @@ from .utils import (NewsLinkGetObjectMixin,
                     StartupContextMixin,)
 from .models import  (Tag, Startup, NewsLink)
 from .forms import (TagForm, StartupForm, NewsLinkForm)
-from user.decorators import custom_login_required
+from user.decorators import (
+        custom_login_required,
+        require_authenticated_permission)
 
 def model_list(request, model):
     context_object_name = '{}_list'.format(
@@ -45,15 +45,21 @@ class TagCreate(CreateView):
     form_class = TagForm
     model = Tag
     
-    @method_decorator(custom_login_required)
+    @require_authenticated_permission(
+            'organizer.add_blog')
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(
                 request, *args, **kwargs)
-    
+                         
 class TagUpdate(UpdateView):
     form_class = TagForm
     template_name_suffix = '_form_update'
     model = Tag
+    
+    @custom_login_required
+    def dispatch(request, *args, **kwargs):
+        return super().dispatch(
+                request, *args, **kwargs)
     
 class TagDelete(DeleteView):
     model = Tag
