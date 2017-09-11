@@ -11,7 +11,8 @@ from django.views.generic import (View,
 
 from core.utils import UpdateView
 
-from .utils import DateObjectMixin
+from .utils import (DateObjectMixin, 
+                    AllowFuturePermissionMixin)
 from .forms import PostForm
 from .models import Post
 
@@ -19,9 +20,10 @@ from user.decorators import require_authenticated_permission
 
 
 
-class PostList(ArchiveIndexView):
+class PostList(
+        AllowFuturePermissionMixin,
+        ArchiveIndexView):
     allow_empty = True
-    allow_future = True
     context_object_name = 'post_list'
     date_field = 'pub_date'
     make_object_list = True
@@ -31,7 +33,6 @@ class PostList(ArchiveIndexView):
 
 
 class PostDetail(DateObjectMixin, DetailView):
-    allow_future = True
     date_field = 'pub_date'
     model = Post
 
@@ -44,7 +45,6 @@ class PostCreate(CreateView):
 @require_authenticated_permission(
         'blog.change_post')
 class PostUpdate(DateObjectMixin, UpdateView):
-    allow_future = True
     date_field = 'pub_date'    
     form_class = PostForm
     model = Post
@@ -52,17 +52,20 @@ class PostUpdate(DateObjectMixin, UpdateView):
 @require_authenticated_permission(
         'blog.delete_post')
 class PostDelete(DateObjectMixin, DeleteView):
-    allow_future = True
     date_field = 'pub_date'    
     model = Post
     success_url = reverse_lazy('blog_post_list')
 
-class PostArchiveYear(YearArchiveView):
+class PostArchiveYear(
+        AllowFuturePermissionMixin,
+        YearArchiveView):
     model = Post
     date_field = 'pub_date'
     make_object_list = True
     
-class PostArchiveMonth(MonthArchiveView):
+class PostArchiveMonth(        
+        AllowFuturePermissionMixin,
+        MonthArchiveView):
     model= Post
     date_field = 'pub_date'
     month_format = '%m'
