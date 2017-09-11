@@ -8,19 +8,15 @@ from django.views.generic import (View,
                                   CreateView,
                                   DeleteView,
                                   ListView,)
-
-from django.contrib.auth import PermissionDenied
-from django.utils.decorators import method_decorator
 from core.utils import UpdateView
 
 from .utils import (NewsLinkGetObjectMixin,
-                    StartupContextMixin,
                     PageLinksMixin,
                     StartupContextMixin,)
 from .models import  (Tag, Startup, NewsLink)
 from .forms import (TagForm, StartupForm, NewsLinkForm)
 from user.decorators import (
-        custom_login_required,
+        class_login_required,
         require_authenticated_permission)
 
 def model_list(request, model):
@@ -40,27 +36,22 @@ class TagList(PageLinksMixin,ListView):
 
 class TagDetail(DetailView):
     model = Tag
-
+    
+@require_authenticated_permission('organizer.add_newslink')
 class TagCreate(CreateView):
     form_class = TagForm
     model = Tag
-    
-    @require_authenticated_permission(
-            'organizer.add_blog')
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(
-                request, *args, **kwargs)
-                         
+
+
+@require_authenticated_permission(
+        'organizer.change_tag')   
 class TagUpdate(UpdateView):
     form_class = TagForm
     template_name_suffix = '_form_update'
     model = Tag
-    
-    @custom_login_required
-    def dispatch(request, *args, **kwargs):
-        return super().dispatch(
-                request, *args, **kwargs)
-    
+
+@require_authenticated_permission(
+        'organizer.delete_tag') 
 class TagDelete(DeleteView):
     model = Tag
     success_url = reverse_lazy('organizer_tag_list') 
@@ -74,19 +65,28 @@ class StartupDetail(DetailView):
     form_class = StartupForm
     model = Startup
 
+@require_authenticated_permission(
+        'organizer.add_startup')
 class StartupCreate(CreateView):
     form_class = StartupForm
     model = Startup
 
+@require_authenticated_permission(
+        'organizer.change_startup')
 class StartupUpdate(UpdateView):
     form_class = StartupForm
     template_name_suffix= '_form_update'
     model = Startup
 
+@require_authenticated_permission(
+        'organizer.delete_startup')
 class StartupDelete(DeleteView):
     model = Startup
     success_url = reverse_lazy('organizer_startup_list')
-            
+
+
+@require_authenticated_permission(
+        'organizer.add_newslink')
 class NewsLinkCreate(
         NewsLinkGetObjectMixin,
         StartupContextMixin,
@@ -104,7 +104,9 @@ class NewsLinkCreate(
                     self.startup,}
         initial.update(self.initial)
         return initial
-    
+
+@require_authenticated_permission(
+        'organizer.change_newslink')
 class NewsLinkUpdate(
         NewsLinkGetObjectMixin,
         StartupContextMixin,
@@ -112,7 +114,9 @@ class NewsLinkUpdate(
     form_class  = NewsLinkForm
     model = NewsLink
     slug_url_kwarg = 'newslink_slug'
-        
+
+@require_authenticated_permission(
+        'organizer.delete_newslink')
 class NewsLinkDelete(        
         StartupContextMixin,
         DeleteView,):

@@ -15,6 +15,8 @@ from .utils import DateObjectMixin
 from .forms import PostForm
 from .models import Post
 
+from user.decorators import require_authenticated_permission
+
 
 
 class PostList(ArchiveIndexView):
@@ -27,21 +29,28 @@ class PostList(ArchiveIndexView):
     paginate_by = 5
     template_name = 'blog/post_list.html'
 
+
 class PostDetail(DateObjectMixin, DetailView):
     allow_future = True
     date_field = 'pub_date'
     model = Post
-    
+
+@require_authenticated_permission(
+        'blog.add_post')
 class PostCreate(CreateView):
     form_class = PostForm
     model = Post
-        
+    
+@require_authenticated_permission(
+        'blog.change_post')
 class PostUpdate(DateObjectMixin, UpdateView):
     allow_future = True
     date_field = 'pub_date'    
     form_class = PostForm
     model = Post
-            
+
+@require_authenticated_permission(
+        'blog.delete_post')
 class PostDelete(DateObjectMixin, DeleteView):
     allow_future = True
     date_field = 'pub_date'    
