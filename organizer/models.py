@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -19,6 +21,10 @@ class Tag(models.Model):
     def get_delete_url(self):
         return reverse('organizer_tag_delete',
                        kwargs={'slug':self.slug})
+        
+    def published_posts(self):
+        return self.blog_posts.filter(
+                pub_date__lt=date.today())
     
 
 class Startup(models.Model):
@@ -53,6 +59,10 @@ class Startup(models.Model):
         return reverse(
                 'organizer_newslink_create',
                 kwargs={'startup_slug': self.slug})
+        
+    def published_posts(self):
+        return self.blog_posts.filter(
+                pub_date__lt=date.today())
 
 class NewsLink(models.Model):
     title = models.CharField(max_length=63, verbose_name=_('title'))
