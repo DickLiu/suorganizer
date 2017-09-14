@@ -47,7 +47,7 @@ password_urls = [
         url(r'^reset/'
             r'(?P<uidb64>[0-9A-Za-z_\-]+)/'
             r'(?P<token>[0-9A-Za-z]{1,13}'
-            r'-[0-9A-Za-z]{1,20}/$',
+            r'-[0-9A-Za-z]{1,20})/$',
             auth_views.password_reset_confirm,
             {'template_name':
                 'user/password_reset_confirm.html',
@@ -56,7 +56,7 @@ password_urls = [
                          'dj-auth:pw_reset_complete')},
             name='pw_reset_confirm'),
         url(r'reset/done/$',
-            auth_views.passoword_reset_complete,
+            auth_views.password_reset_complete,
             {'template_name':
                 'user/password_reset_complete.html',
              'extra_context':
