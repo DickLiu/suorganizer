@@ -40,7 +40,28 @@ password_urls = [
             name='pw_reset_start'),
         url(r'^reset/sent/$',
             auth_views.password_reset_done,
+            {'template_name':
+                'user/password_reset_sent.html'},
+            name='pw_reset_sent'
             ),
+        url(r'^reset/'
+            r'(?P<uidb64>[0-9A-Za-z_\-]+)/'
+            r'(?P<token>[0-9A-Za-z]{1,13}'
+            r'-[0-9A-Za-z]{1,20}/$',
+            auth_views.password_reset_confirm,
+            {'template_name':
+                'user/password_reset_confirm.html',
+             'post_reset_redirect':
+                 reverse_lazy(
+                         'dj-auth:pw_reset_complete')},
+            name='pw_reset_confirm'),
+        url(r'reset/done/$',
+            auth_views.passoword_reset_complete,
+            {'template_name':
+                'user/password_reset_complete.html',
+             'extra_context':
+                 {'form': AuthenticationForm}},
+            name='pw_reset_complete'),
         ]
 
 urlpatterns = [
