@@ -1,0 +1,12 @@
+{% extends parent_template|default:'user/base_user.html' %}
+
+<p>Disable your account?</p>
+<p>This cannot be undone.</p>
+
+<form
+      action="{% url 'dj-auth:disable' %}"
+      method="post">
+      {% csrf_token %}
+      <button type="submit">
+      Disable Account</button>
+</form>

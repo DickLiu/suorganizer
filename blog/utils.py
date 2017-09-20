@@ -12,7 +12,11 @@ from django.views.generic.dates import(
         _date_from_string)
 
 class AllowFuturePermissionMixin():
-    
+    '''
+    get_allow_future()是CBV預設的view
+    藉由改寫這個view,讓沒有view_future_post的
+    回傳false
+    '''
     def get_allow_future(self):
         return self.request.user.has_perm(
                 "blog.view_future_post")
