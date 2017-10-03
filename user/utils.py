@@ -4,8 +4,9 @@ Created on Mon Sep 18 14:20:24 2017
 
 @author: user
 """
+import logging
 import traceback
-
+from logging import CRITICAL, ERROR
 from smtplib import SMTPException
 
 from django.conf import settings
@@ -15,6 +16,7 @@ from django.contrib.auth.tokens import \
     default_token_generator as token_generator
 from django.contrib.sites.shortcuts import \
     get_current_site
+from django.core.exceptions import ValidationError
 from django.utils.encoding import \
     force_bytes
 from django.utils.http import \
@@ -22,8 +24,36 @@ from django.utils.http import \
 from django.core.mail import (
         BadHeaderError, send_mail)
 
+logger = logging.getLogger(__name__)
+
 class ActivationMailFormMixin:
     mail_validation_error = ''
+    
+    def log_mail_error(self, **kwargs):
+        msg_list = [
+                'Activation email did not send.\n',
+                'from_email: {from_email}\n'
+                'subject: {suject}\n'
+                'message: {message}\n',
+                ]
+        recipient_list = kwargs.get(
+                'recipient_list', [])
+        for recipient in recipient_list:
+            msg_list.insert(
+                    1, 'recipient: {r}\n'.format(
+                            r=recipient))
+        if 'error' in kwargs:
+            level = ERROR
+            error_msg = (
+                    'error: {0.__class__.__name__}\n'
+                    'args: {0.args}\n')
+            error_info = error_mag.format(
+                    kwarg['error'])
+            msg_list.insert(1, error_info)
+        else:
+            level = CRITICAL
+        msg = ''.join(msg_list).format(**kwargs)
+        logger.log(level, msg)
     
     @property
     def mail_sent(self):
@@ -89,6 +119,8 @@ class ActivationMailFormMixin:
                     }
         try:
             #number_sent will 0 or 1
+            # calls django.core.mail.send_mail()
+            # not self.send_mail() below
             number_sent = send_mail(**mail_kwargs)
         except Exception as error:
             self.log_mail_error(
@@ -127,4 +159,20 @@ class ActivationMailFormMixin:
                             self.mail_validation_error,
                             code=error))
         return self.mail_sent
+
+class MailContextViewMixin:
+    email_template_name = 
+    'user/email_create.txt'
+    subject_template_name = (
+            'user/subject_create.txt')
+    
+    def get_save_kwargs(self, request):
+        return {
+                'email_template_name':
+                    self.email_template_name,
+                'request':
+                    request,
+                'subject_template_name':
+                    self.subject_template_name,
+                    }
 

@@ -10,10 +10,19 @@ from django.contrib.auth import \
 from django.contrib.auth.forms import \
     AuthenticationForm
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import RedirectView
-from .views import http_info, DisableAccount
+from django.views.generic import (RedirectView,
+                                  TemplateView)
+from .views import (http_info,
+                    DisableAccount,
+                    ActivateAccount,
+                    CreateAccount,
+                    ResendActivationEmail)
 
 password_urls = [
+        url(r'^$',
+            RedirectView.as_view(
+                    pattern_name='dj-auth:pw_reset_start',
+                    permanent=False)),
         url(r'^change/$',
             auth_views.password_change,
             {'template_name':
@@ -70,6 +79,28 @@ urlpatterns = [
             RedirectView.as_view(
                     pattern_name='dj-auth:login',
                     permanent=False)),
+        url(r'^activate/'
+            r'(?P<uidb64>[0-9A-Za-z_\-])'
+            r'(?P<token>[0-9A-Za-z]{1,13}'
+            r'-[0-9A-Za-z]{1,20})/$',
+            ActivateAccount.as_view(),
+            name='activate'),
+        url(r'^activate/resend/$',
+            ResendActivationEmail.as_view(),
+            name='resend_activation'),
+        url(r'^activate',
+            RedirectView.as_view(
+                    pattern_name=(
+                            'dj-auth:resend_activation'),
+                    permanent=False)),
+        url(r'^create/$',
+            CreateAccount.as_view(),
+            name='create'),
+        url(r'^create/done/$',
+            TemplateView.as_view(
+                    template_name=(
+                            'user/user_create_done.html')),
+                    name='create_done'),
         url(r'^login/$',
             auth_views.login,
             {'template_name': 'user/login.html'},
