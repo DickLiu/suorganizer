@@ -16,7 +16,10 @@ from .views import (http_info,
                     DisableAccount,
                     ActivateAccount,
                     CreateAccount,
-                    ResendActivationEmail)
+                    ResendActivationEmail,
+                    ProfileDetail,
+                    ProfileUpdate,
+                    PublicProfileDetail,)
 
 password_urls = [
         url(r'^$',
@@ -114,9 +117,18 @@ urlpatterns = [
              name='logout'),
         url(r'^password/',
             include(password_urls)),
+        url(r'^profile/$',
+            ProfileDetail.as_view(),
+            name='profile'),
+        url(r'^profile/edit/$',
+            ProfileUpdate.as_view(),
+            name='profile_update'),
+        url(r'^(?P<slug>[\w\-]+)/$',
+            PublicProfileDetail.as_view(),
+            name='public_profile'),
         url(r'^disable/$',
             DisableAccount.as_view(),
-            name-'disable'),
+            name='disable'),
         url(r'^info/$',
             http_info,
             name='info'

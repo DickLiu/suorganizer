@@ -14,6 +14,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import \
     default_token_generator as token_generator
+from django.contrib.auth import get_user
 from django.contrib.sites.shortcuts import \
     get_current_site
 from django.core.exceptions import ValidationError
@@ -161,8 +162,7 @@ class ActivationMailFormMixin:
         return self.mail_sent
 
 class MailContextViewMixin:
-    email_template_name = 
-    'user/email_create.txt'
+    email_template_name ='user/email_create.txt'
     subject_template_name = (
             'user/subject_create.txt')
     
@@ -175,4 +175,10 @@ class MailContextViewMixin:
                 'subject_template_name':
                     self.subject_template_name,
                     }
+            
+class ProfileGetObjectMixin:
+    
+    def get_object(self, queryset=None):
+        current_user = get_user(self.request)
+        return current_user.profile
 
