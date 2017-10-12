@@ -77,6 +77,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'suorganizer.wsgi.application'
 
+# User
+#https://docs.djangoproject.com/en/1.8/topics/auth/customizing/#substituting-a-custom-user-model
+
+AUTH_USER_MODEL = 'user.User'
+'''
+This dotted pair describes the name of the Django app 
+(which must be in your INSTALLED_APPS), 
+and the name of the Django model that 
+you wish to use as your User model.
+'''
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases

@@ -5,16 +5,15 @@ Created on Wed Sep 27 11:34:07 2017
 @author: user
 """
 import logging
+from django import forms
+from django.contrib.auth import get_user_model
 
 from django.contrib.auth.forms import \
 UserCreationForm as BaseUserCreationForm
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
+
 from .models import Profile
-
-from django.contrib.auth import get_user_model
-from django import forms
-
 from .utils import ActivationMailFormMixin
 
 logger = logging.getLogger(__name__)
@@ -29,7 +28,7 @@ class UserCreationForm(
     
     class Meta(BaseUserCreationForm.Meta):
         model = get_user_model()
-        fields = ('username', 'email')
+        fields = ('name', 'email')
         
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -69,11 +68,13 @@ class UserCreationForm(
     
 class ResendActivationEmailForm(
         ActivationMailFormMixin, forms.Form):
+    
     email = forms.EmailField()
   
     mail_validation_error = (
           'Could not re-send activation email.'
           'please try again later.')
+    
     def save(self, **kwargs):
         User = get_user_model()
         try:
