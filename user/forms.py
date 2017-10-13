@@ -26,9 +26,9 @@ class UserCreationForm(
             'User created. Could not send activation'
             'email. Please try again later.')
     
-    class Meta(BaseUserCreationForm.Meta):
+    class Meta(BaseUserCreationForm):
         model = get_user_model()
-        fields = ('name', 'email')
+        fields = '__all__'
         
     def clean_username(self):
         username = self.cleaned_data['username']
