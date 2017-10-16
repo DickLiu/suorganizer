@@ -96,20 +96,18 @@ class CreateAccount(MailContextViewMixin, View):
         return TemplateResponse(
                 request,
                 self.template_name,
-                {'form': bound_form})
-        
-
+                {'form': bound_form})        
 
 class DisableAccount(View):
     success_url = settings.LOGIN_REDIRECT_URL
-    template_name = ('user/user_confirm_delete.html')
-    
+    template_name = (
+        'user/user_confirm_delete.html')
+
     @method_decorator(csrf_protect)
     @method_decorator(login_required)
     def get(self, request):
-        return TemplateResponse(
-                request, self.template_name)
-    
+        return TemplateResponse(request, self.template_name)
+
     @method_decorator(csrf_protect)
     @method_decorator(login_required)
     def post(self, request):
@@ -164,13 +162,13 @@ class ProfileDetail(
         DetailView):
     model = Profile
     
+class PublicProfileDetail(DetailView):
+    model = Profile
+    
 @class_login_required
 class ProfileUpdate(
         ProfileGetObjectMixin, UpdateView):
-    fields = ('about')
-    model = Profile
-
-class PublicProfileDetail(DetailView):
+    fields = ('about',)
     model = Profile
 
 def http_info(request):

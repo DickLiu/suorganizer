@@ -93,7 +93,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
     
     def get_absolute_url(self):
-        self.profile.get_absolute_url()
+        return self.profile.get_absolute_url()
         
     def get_full_name(self):
         return self.profile.name

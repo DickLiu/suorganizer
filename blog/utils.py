@@ -104,7 +104,7 @@ class DateObjectMixin(
                     self._get_next_month(date),
                     }
 
-class PostFormValidMxin:
+class PostFormValidMixin:
     
     def form_valid(self, form):
         self.object = form.save(self.request)

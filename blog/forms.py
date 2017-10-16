@@ -10,7 +10,7 @@ from django.contrib.auth import get_user
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ('author')
+        exclude = ('author',)
         
     def clean_slug(self):
         return self.cleaned_data['slug'].lower()

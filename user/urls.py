@@ -32,12 +32,12 @@ password_urls = [
                 'user/password_change_form.html',
              'post_change_redirect':
                  reverse_lazy(
-                         'dj-auth:pw_chnage_done')},
+                         'dj-auth:pw_change_done')},
             name='pw_change'),
-        url(r'^chnage/done/$',
+        url(r'^change/done/$',
             auth_views.password_change_done,
             {'template_name':
-                'user/password_chnage_done.html'},
+                'user/password_change_done.html'},
             name='pw_change_done'),
         url(r'^reset/$',
             auth_views.password_reset,
@@ -104,6 +104,9 @@ urlpatterns = [
                     template_name=(
                             'user/user_create_done.html')),
                     name='create_done'),
+        url(r'^disable/$',
+            DisableAccount.as_view(),
+            name='disable'),
         url(r'^login/$',
             auth_views.login,
             {'template_name': 'user/login.html'},
@@ -125,10 +128,7 @@ urlpatterns = [
             name='profile_update'),
         url(r'^(?P<slug>[\w\-]+)/$',
             PublicProfileDetail.as_view(),
-            name='public_profile'),
-        url(r'^disable/$',
-            DisableAccount.as_view(),
-            name='disable'),
+            name='public_profile'),       
         url(r'^info/$',
             http_info,
             name='info'

@@ -1,12 +1,23 @@
 {% extends parent_template|default:'user/base_user.html' %}
 
-<p>Disable your account?</p>
-<p>This cannot be undone.</p>
+{% block title %}
+{{ block.super }} - Disable Account
+{% endblock %}
 
-<form
+{% block content %}
+<div class="row">
+    <div class="offset-by-two eight columns">
+        <p>Disable your account?</p>
+        <p>This cannot be undone.</p>
+        <form
       action="{% url 'dj-auth:disable' %}"
       method="post">
       {% csrf_token %}
       <button type="submit">
       Disable Account</button>
-</form>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
