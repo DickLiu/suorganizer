@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -98,4 +100,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def get_short_name(self):
         return self.profile.name
+    
+    def published_posts(self):
+        return self.blog_posts.filter(
+                pub_date__lt=date.today())
     

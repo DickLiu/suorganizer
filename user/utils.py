@@ -48,7 +48,7 @@ class ActivationMailFormMixin:
             error_msg = (
                     'error: {0.__class__.__name__}\n'
                     'args: {0.args}\n')
-            error_info = error_mag.format(
+            error_info = error_msg.format(
                     kwarg['error'])
             msg_list.insert(1, error_info)
         else:

@@ -3,8 +3,7 @@ from organizer.models import Startup, Tag
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-
-# Create your models here.
+from django.conf import settings
 
 class Post(models.Model):
     title = models.CharField(max_length=63, verbose_name=_('title'))
@@ -13,7 +12,11 @@ class Post(models.Model):
     text = models.TextField(verbose_name=_('text'))
     pub_date = models.DateField('date published', auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='blog_posts', blank=True, verbose_name=_('tags'))
-    startups = models.ManyToManyField(Startup, related_name='blog_posts', blank=True, verbose_name=_('startups'))    
+    startups = models.ManyToManyField(Startup, related_name='blog_posts', blank=True, verbose_name=_('startups'))
+    author = models.ForeignKey(
+            settings.AUTH_USER_MODEL,
+            related_name='blog_posts')    
+    
     def __str__(self):
         return "{}:{}".format(self.title, self.pub_date.strftime('%Y-%m-%d')) #將時間用客製化格式顯示的函數strftime()        
     class Meta:

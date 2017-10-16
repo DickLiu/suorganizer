@@ -12,7 +12,8 @@ from django.views.generic import (View,
 from core.utils import UpdateView
 
 from .utils import (DateObjectMixin, 
-                    AllowFuturePermissionMixin)
+                    AllowFuturePermissionMixin,
+                    PostFormValidMixin)
 from .forms import PostForm
 from .models import Post
 
@@ -38,13 +39,16 @@ class PostDetail(DateObjectMixin, DetailView):
 
 @require_authenticated_permission(
         'blog.add_post')
-class PostCreate(CreateView):
+class PostCreate(PostFormValidMixin,
+                 CreateView):
     form_class = PostForm
     model = Post
     
 @require_authenticated_permission(
         'blog.change_post')
-class PostUpdate(DateObjectMixin, UpdateView):
+class PostUpdate(PostFormValidMixin,
+                 DateObjectMixin,
+                 UpdateView):
     date_field = 'pub_date'    
     form_class = PostForm
     model = Post

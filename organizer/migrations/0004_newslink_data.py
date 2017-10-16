@@ -33,7 +33,8 @@ def add_newslink_data(apps, schema_editor):
         title=newslink_dict['title'],                   
         link=newslink_dict['link'],                   
         pub_date=newslink_dict['pub_date'],             
-        startup=Startup.objects.get(slug=newslink_dict['startup']))
+        startup=Startup.objects.get(
+            slug=newslink_dict['startup']))
 
 def remove_newslink_data(apps, schema_editor):
     NewsLink = apps.get_model('organizer', 'NewsLink')
@@ -43,7 +44,9 @@ def remove_newslink_data(apps, schema_editor):
         title=newslink_dict['title'],                   
         link=newslink_dict['link'],
         pub_date=newslink_dict['pub_date'],
-        startup=Startup.objects.get(slug=newslink_dict['startup']))
+        startup=Startup.objects.get(
+            slug=newslink_dict['startup']),
+        )
         newslink.delete()
 
 class Migration(migrations.Migration):
