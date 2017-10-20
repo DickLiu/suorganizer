@@ -51,4 +51,5 @@ class Post(models.Model):
                 'blog_post_archive_month',
                 kwargs={'year':self.pub_date.year,
                         'month':self.pub_date.month})
+    
                         
