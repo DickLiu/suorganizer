@@ -6,7 +6,7 @@ from django.db.models import Count
 from .models import Post
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(admin.ModelAdmin):    
     list_display = (
             'title', 'pub_date', 'tag_count'
             )
