@@ -1,0 +1,79 @@
+[
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "contributors",
+    "permissions": [
+      25,
+      26
+    ]
+  }
+},
+{
+  "model": "user.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$kjEeWSJ8h9EA$rs3gAdtqqSIZtYLO/ojteuRVNxMvUYlqchUp4cE1+1A=",
+    "last_login": "2017-10-23T06:46:40.420Z",
+    "is_superuser": true,
+    "email": "django@jambonsw.com",
+    "is_staff": true,
+    "is_active": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "user.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$4hKIci2YYEje$PiAmV/DfilTG4+xqFgkxBObpPgqRefl/DGEq5t0ChEY=",
+    "last_login": "2017-10-22T10:35:48Z",
+    "is_superuser": false,
+    "email": "ada@djangogirls.org",
+    "is_staff": true,
+    "is_active": true,
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "user.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$iw0gdGT4dw2M$Mu82Nkge1PGQeiqOYFnToaOcdDuEQdaUkD7fQSuXYU8=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "301330133013@yahoo.com.tw",
+    "is_staff": true,
+    "is_active": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "user.profile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "slug": "andrew",
+    "about": "The author of this site and Dick",
+    "name": "Andrew",
+    "joined": "2017-10-15T08:18:14.471Z"
+  }
+},
+{
+  "model": "user.profile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "slug": "the_countess",
+    "about": "Django Girls is a non-profit organization that empowers and helps women to organize free, one-day programming workshops by providing tools, resources and support. It was born in Berlin and started by two Polish girls: Ola Sitarska and Ola Sendecka.",
+    "name": "Ada Lovelace",
+    "joined": "2017-10-15T08:18:14.495Z"
+  }
+}
+]

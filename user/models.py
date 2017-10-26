@@ -7,6 +7,11 @@ from django.contrib.auth.models import (
         AbstractBaseUser, PermissionsMixin,
         BaseUserManager)
 
+class ProfileManager(models.Manager):
+    
+    def get_by_natural_key(self, slug):
+        return self.get(slug=slug)
+
 class Profile(models.Model):
     user = models.OneToOneField(
             settings.AUTH_USER_MODEL)
@@ -22,6 +27,8 @@ class Profile(models.Model):
             "Date Joined",
             auto_now_add=True)
     
+    objects = ProfileManager()
+    
     def __str__(self):
         return self.user.get_username()
     
@@ -33,6 +40,11 @@ class Profile(models.Model):
         return reverse(
                 'dj-auth:public_profile',
                 kwargs={'slug': self.slug})
+        
+    def natural_key(self):
+        return (self.slug,)
+    natural_key.dependencies = ['user.user']
+    
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -65,6 +77,9 @@ class UserManager(BaseUserManager):
         return self._create_user(
                 email, password, is_superuser=True,
                 is_staff=True, **extra_fields)
+        
+    def get_by_natural_key(self, email):
+        return self.get(email=email)
         
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
@@ -104,4 +119,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def published_posts(self):
         return self.blog_posts.filter(
                 pub_date__lt=date.today())
+        
+    def natural_key(self):
+        return (self.email,)
     

@@ -1,9 +1,29 @@
+from datetime import date
+
 from django.db import models
-from organizer.models import Startup, Tag
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
+
+from organizer.models import Startup, Tag
+
+class PostQueryset(models.QuerySet):
+    
+    def published(self):
+        return self.filter(
+                pub_date__lte=date.today())
+
+class BasePostManager(models.Manager):
+    
+    def get_by_natural_key(
+            self, pub_date, slug):
+        return self.get(
+                pub_date=pub_date,
+                slug=slug)
+        
+PostManager = BasePostManager.from_queryset(
+        PostQueryset)
 
 class Post(models.Model):
     title = models.CharField(max_length=63, verbose_name=_('title'))
@@ -15,7 +35,9 @@ class Post(models.Model):
     startups = models.ManyToManyField(Startup, related_name='blog_posts', blank=True, verbose_name=_('startups'))
     author = models.ForeignKey(
             settings.AUTH_USER_MODEL,
-            related_name='blog_posts')    
+            related_name='blog_posts')
+    
+    objects = PostManager()
     
     def __str__(self):
         return "{}:{}".format(self.title, self.pub_date.strftime('%Y-%m-%d')) #將時間用客製化格式顯示的函數strftime()        
@@ -52,4 +74,14 @@ class Post(models.Model):
                 kwargs={'year':self.pub_date.year,
                         'month':self.pub_date.month})
     
-                        
+    def natural_key(self):
+        return(
+                self.pub_date,
+                self.slug,)
+    natural_key.dependencies = [
+            'organizer.startup',
+            'organizer.tag',
+            'user.user',
+            ]
+
+    
