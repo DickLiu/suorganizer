@@ -3,6 +3,7 @@ from datetime import date
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import cached_property
 
 class TagManager(models.Manager):
     
@@ -28,10 +29,12 @@ class Tag(models.Model):
                        kwargs={'slug':self.slug})
     def get_delete_url(self):
         return reverse('organizer_tag_delete',
-                       kwargs={'slug':self.slug})        
+                       kwargs={'slug':self.slug})  
+        
+    @cached_property    
     def published_posts(self):
-        return self.blog_posts.filter(
-                pub_date__lt=date.today())
+        return tuple(self.blog_posts.filter(
+                pub_date__lt=date.today()))
         
     def natural_key(self):
         return (self.slug,)
@@ -76,9 +79,10 @@ class Startup(models.Model):
                 'organizer_newslink_create',
                 kwargs={'startup_slug': self.slug})
         
+    @cached_property   
     def published_posts(self):
-        return self.blog_posts.filter(
-                pub_date__lt=date.today())
+        return tuple(self.blog_posts.filter(
+                pub_date__lt=date.today()))
         
     def natural_key(self):
         return (self.slug,)

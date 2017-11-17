@@ -27,15 +27,20 @@ class PostList(
     allow_empty = True
     context_object_name = 'post_list'
     date_field = 'pub_date'
-    make_object_list = True
     model = Post
+    make_object_list = True
     paginate_by = 5
     template_name = 'blog/post_list.html'
 
 
 class PostDetail(DateObjectMixin, DetailView):
     date_field = 'pub_date'
-    model = Post
+    queryset = (
+            Post.objects
+            .select_related('author__profile')
+            .prefetch_related('startups')
+            .prefetch_related('tags')
+            )
 
 @require_authenticated_permission(
         'blog.add_post')

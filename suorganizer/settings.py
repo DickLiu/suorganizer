@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+INTERNAL_IPS = ['127.0.0.1',]
+
 
 # Application definition
 
@@ -43,10 +45,13 @@ INSTALLED_APPS = [
     'core',
     'organizer',
     'blog',    
-    'contact',    
+    'contact',
+    'debug_toolbar',    
     ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',   
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'suorganizer.urls'
@@ -63,13 +69,18 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages',            
+            ],
+            'loaders': [
+                    #('django.template.loaders.cached.Loader',[
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                     #]),
             ],
         },
     },
@@ -77,6 +88,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'suorganizer.wsgi.application'
 
+# Caches
+# https://docs.djangoproject.com/en/1.11/topics/cache/#django-s-cache-framework
+
+CACHES = {
+        'default': {
+                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+                'LOCATION': 'unique-snowflake',
+                'TIMEOUT': 600, #seconds == 10 mins
+                }
+        }
+CACHE_MIDDLEWARE_ALIAS = 'default'
 # User
 #https://docs.djangoproject.com/en/1.8/topics/auth/customizing/#substituting-a-custom-user-model
 

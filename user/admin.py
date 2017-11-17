@@ -50,6 +50,7 @@ class UserAdmin(admin.ModelAdmin):
             'is_superuser',
             'profile__joined')
             # reverse relation
+    list_select_related = ('profile',)
     search_fields = ('email',)
     ordering = ('email',)
     

@@ -35,7 +35,10 @@ class TagList(PageLinksMixin,ListView):
     model = Tag
 
 class TagDetail(DetailView):
-    model = Tag
+    queryset = (
+            Tag.objects
+            .prefetch_related('startup_set')
+            )
     
 @require_authenticated_permission('organizer.add_newslink')
 class TagCreate(CreateView):
@@ -63,7 +66,13 @@ class StartupList(PageLinksMixin,ListView):
     
 class StartupDetail(DetailView):
     form_class = StartupForm
-    model = Startup
+    queryset = (
+            Startup.objects.all() # without all() is no difference
+            .prefetch_related('tags')
+            .prefetch_related('newslink_set'))
+    # below omitted because of with tag
+    # and conditional display based on time
+    # .prefetch_related('blog_posts')
 
 @require_authenticated_permission(
         'organizer.add_startup')

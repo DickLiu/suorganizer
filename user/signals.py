@@ -15,7 +15,7 @@ def display_login_message(sender, **kwargs):
             
 @receiver(user_logged_out)
 def display_logout_message(sender, **kwargs):
-    request = kwargd.get('request')
+    request = kwargs.get('request')
     success(
             request,
             "Successfully logged out.",

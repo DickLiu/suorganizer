@@ -16,6 +16,15 @@ class PostQueryset(models.QuerySet):
 
 class BasePostManager(models.Manager):
     
+    def get_queryset(self):
+        return (
+                PostQueryset(
+                        self.model,
+                        using=self._db,
+                        hints=self._hints)
+                .select_related('author__profile'))
+    
+    
     def get_by_natural_key(
             self, pub_date, slug):
         return self.get(
@@ -49,6 +58,8 @@ class Post(models.Model):
                 ('view_future_post',
                  'Can view unpublished Post'),
         )
+        index_together = (
+                ('slug', 'pub_date'),)
     def get_absolute_url(self):
         return reverse('blog_post_detail', 
                        kwargs={'year':self.pub_date.year, 
