@@ -10,6 +10,6 @@ register = template.Library()
 @stringfilter
 def obfuscate_email(value):
     return (value
-            .replace('@', 'at')
-            .replace('.', 'dot'))
+            .replace('@', ' at ')
+            .replace('.', ' dot '))
     

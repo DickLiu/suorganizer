@@ -8,13 +8,14 @@ from django.forms import ModelForm
 from django.forms.widgets import HiddenInput
 from .models import Tag, NewsLink, Startup #relative import
 from django.core.exceptions import ValidationError
+from django.utils.text import slugify
 
 class SlugCleanMixin:
     #Mixin class for slug cleaning method.
     def clean_slug(self):
         new_slug = self.cleaned_data['slug'].lower()    
         if new_slug == 'create':        
-            raise ValidationError('Slug may not be "create".')    
+            raise ValidationError('Slug may not be "create".')
         return new_slug
 
 class TagForm(SlugCleanMixin, forms.ModelForm):

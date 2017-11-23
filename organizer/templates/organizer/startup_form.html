@@ -1,21 +1,11 @@
 {% extends parent_template|default:"organizer/base_organizer.html" %}
+{% load display_form %}
 
 {% block title %}
 {{ block.super }} - Create Startup
 {% endblock title %}
 
 {% block content %}
-<div class="row">
-	<div clss="offset-by-two eight columns">
-	<form  action="{% url 'organizer_startup_create' %}"
-		  method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button 
-            type="submit"
-            class="button-primary">
-		Create Startup</button>
-		</form>
-	</div>
-</div>
+    {% url 'organizer_startup_create' as form_url %}
+    {% form form_url 'Create Startup' %}
 {% endblock content %}
