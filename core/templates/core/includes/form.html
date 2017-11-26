@@ -5,11 +5,11 @@
               method="{{ method|default:'post' }}">
               {% csrf_token %}
               {{ form.as_p }}
-              <button
-                      class="button-primary"
-                      type="submit">
-                  {{ button|default:'Submit' }}
-            </button>
+        <button
+                  class="button-primary"
+                  type="submit">
+              {{ button|default:'Submit' }}
+        </button>
         </form> 
     </div>
 </div>
