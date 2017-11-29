@@ -45,7 +45,15 @@
                 </a></dd>
             {% endfor %}
     {% endwith %}
-    </dl>    
+    
+    <dt>Feeds</dt>
+        <dd>
+            <a href="{{ startup.get_feed_atom_url }}">Atom</a>
+        </dd>
+        <dd>
+            <a href="{{ startup.get_feed_rss_url }}">Rss</a>
+        </dd>        
+    </dl>
 
     {{ startup.description|linebreaks }}
     </div>

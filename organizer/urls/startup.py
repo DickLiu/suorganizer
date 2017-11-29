@@ -13,6 +13,8 @@ from ..views import (StartupList,
                      NewsLinkCreate,
                      NewsLinkDelete,
                      NewsLinkUpdate,)
+from ..feeds import (
+        AtomStartupFeed, Rss2StartupFeed)    
                      
 urlpatterns = [url(r'^create/$',        
                   StartupCreate.as_view(),        
@@ -33,6 +35,12 @@ urlpatterns = [url(r'^create/$',
                   r'add_article_link/$',
                   NewsLinkCreate.as_view(),
                   name='organizer_newslink_create'),
+              url(r'^(?P<startup_slug>[\w\-]+)/atom/$',
+                  AtomStartupFeed(),
+                  name='organizer_startup_atom_feed'),
+              url(r'^(?P<startup_slug>[\w\-]+)/rss/$',
+                  Rss2StartupFeed(),
+                  name='organizer_startup_rss_feed'),
               url(r'^(?P<startup_slug>[\w\-]+)/'
                   r'(?P<newslink_slug>[\w\-]+)/'
                   r'update/$',

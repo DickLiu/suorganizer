@@ -18,6 +18,7 @@ from django.conf import settings
 from django.contrib import admin
 
 from blog import urls as blog_urls
+from blog.feeds import (AtomPostFeed, Rss2PostFeed)
 from contact import urls as contact_urls
 from organizer.urls import (tag as tag_urls,
                             startup as startup_urls,)
@@ -28,6 +29,14 @@ from django.views.generic import RedirectView, TemplateView
 admin.site.site_header = 'Startup Organizer Admin'
 admin.site.site_title = 'Startup Organizer Site Admin'
 
+sitenews = [
+        url(r'^atom/$',
+            AtomPostFeed(),
+            name='blog_atom_feed'),
+        url(r'^rss/$',
+            Rss2PostFeed(),
+            name='blog_rss_feed'),
+        ]
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -36,6 +45,7 @@ urlpatterns = [
         pattern_name='blog_post_list',
         permanent=False)),
     url(r'^contact/', include(contact_urls)),
+    url(r'^sitenews/', include(sitenews)),
     url(r'^tag/', include(tag_urls)),
     url(r'^startup/', include(startup_urls)),
     url(r'^about/$', TemplateView.as_view(

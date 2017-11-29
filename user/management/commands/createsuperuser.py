@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Create new Super User with Profile.'
     
     def create_user(
-            self, name, username, passwords):
+            self, name, username, password):
         new_user = (
                 self.User.objects.create_superuser(
                         username, password))

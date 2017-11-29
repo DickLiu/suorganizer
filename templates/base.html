@@ -2,19 +2,26 @@
 <!DOCYPE html>
 <html lang="en">
     <head>
-    <meta charset="utf-8">
-        <title>
-        {% block title %}
-        Startup Organizer
-        {% endblock %}
-        </title>
-    <meta http-equiv="X-UA-Compatitle" content="IE=edge, chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <link rel='stylesheet' type="text/css" href="{% static 'site/normalize.css' %}">
-    <link rel='stylesheet' type="text/css" href="{% static 'site/skeleton.css' %}">
-    <link rel='stylesheet' type="text/css" href="{% static 'site/style.css' %}">
-    {% block head %} {% endblock %}
+        <meta charset="utf-8">
+            <title>
+            {% block title %}
+            Startup Organizer
+            {% endblock %}
+            </title>
+        <meta http-equiv="X-UA-Compatitle" content="IE=edge, chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+                <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+            <link rel='stylesheet' type="text/css" href="{% static 'site/normalize.css' %}">
+            <link rel='stylesheet' type="text/css" href="{% static 'site/skeleton.css' %}">
+            <link rel='stylesheet' type="text/css" href="{% static 'site/style.css' %}">
+            <link rel="alternate" title="Blog News RSS"
+                  type="applicaion/rss+xml"
+                  href="{% url 'blog_rss_feed' %}">
+            <link rel="alternate" title="Blog News Atom"
+                  type="applicaion/atom+xml"
+                  href="{% url 'blog_atom_feed' %}">
+
+        {% block head %} {% endblock %}
 	</head>
     
     <body>
@@ -91,6 +98,18 @@
             Created for
                 <a href="https://Django-Unleashed.com/">Django-Unleashed</a>
             </p>
+            <ul>
+                <li>
+                    <a
+                       href="{% url 'blog_rss_feed' %}" class="feed">
+                    Blog RSS Feed</a>
+                </li>
+                <li>
+                    <a
+                       href="{% url 'blog_atom_feed' %}" class="feed">
+                    Blog Atom Feed</a>
+                </li>
+            </ul>
         </footer>
     </body>
 </html>
