@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.sitemaps.views import (
+    index as site_index_view,
+    sitemap as sitemap_view)
 
 from blog import urls as blog_urls
 from blog.feeds import (AtomPostFeed, Rss2PostFeed)
@@ -23,6 +26,7 @@ from contact import urls as contact_urls
 from organizer.urls import (tag as tag_urls,
                             startup as startup_urls,)
 from user import urls as user_urls
+from .sitemaps import sitemaps as sitemaps_dict
 
 from django.views.generic import RedirectView, TemplateView
 
@@ -45,6 +49,14 @@ urlpatterns = [
         pattern_name='blog_post_list',
         permanent=False)),
     url(r'^contact/', include(contact_urls)),
+    url(r'^sitemap\.xml$',
+        site_index_view,
+        {'sitemaps': sitemaps_dict,},
+        name='sitemap'),
+    url(r'^sitemap-(?P<section>.+)\.xml$',
+        sitemap_view,
+        {'sitemaps': sitemaps_dict},
+        name='django.contrib.sitemaps.views.sitemap'),
     url(r'^sitenews/', include(sitenews)),
     url(r'^tag/', include(tag_urls)),
     url(r'^startup/', include(startup_urls)),
