@@ -34,6 +34,9 @@ MIDDLEWARE = (
     'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
+
+DATABASES['default'] =  dj_database_url.config()
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',               
@@ -44,6 +47,7 @@ DATABASES = {
         'PORT': '',
     }
 }
+'''
 
 ALLOWED_HOSTS = [
     'localhost',
