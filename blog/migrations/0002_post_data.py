@@ -28,7 +28,7 @@ POSTS = [
         "slug": "django-training",
         "pub_date": date(2013, 1, 18),
         "startups": ["arachnobots"],
-        "tags": [],
+        "tags": ["jupyter"],
         "text":
             "Want to learn Django in a class "
             "setting? JamBon Software offers "
@@ -43,7 +43,7 @@ POSTS = [
         "slug": "django-18-released",
         "pub_date": date(2015, 4, 1),
         "startups": [],
-        "tags": ["django", "python", "web"],
+        "tags": ["jupyter"],
         "text": "Django 1.8 is Django's newest "
             "version, and the next version "
             "slated for Long-Term Support "
@@ -71,7 +71,7 @@ POSTS = [
         "slug": "more-django-info",
         "pub_date": date(2015, 4, 8),
         "startups": ["game-congress"],
-        "tags": [],
+        "tags": ["jupyter"],
         "text":
             "Remember that the official websites "
             "for Django and this book contain a "
@@ -87,7 +87,7 @@ POSTS = [
         "slug": "new-django-version",
         "pub_date": date(2020, 5, 15),
         "startups": [],
-        "tags": [],
+        "tags": ["jupyter"],
         "text":
             "Better integration with "
             "HTML Boilerstrap 9.",
