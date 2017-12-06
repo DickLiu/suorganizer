@@ -34,15 +34,15 @@ MIDDLEWARE = (
     'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
-DATABSES = {
-        'default': dj_database_url.config(
-                default="django.db.backends.postgresql_psycopg2"))),
-                        ),
-                        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    }
+}
 
 ALLOWED_HOSTS = [
     'localhost',
-    'guarded-inlet-59045.herokuapp.com',]
+    'safe-dusk-45138.herokuapp.com',]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
