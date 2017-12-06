@@ -10,7 +10,7 @@ POSTS = [
         "slug": "django-10-released",
         "pub_date": date(2008, 9, 3),
         "startups": [],
-        "tags": ["django", "python", "web"],
+        "tags": [],
         "text": "THE Web Framework.",
     },
     {
@@ -18,7 +18,7 @@ POSTS = [
         "slug": "simple-robots-for-sale",
         "pub_date": date(2011, 2, 21),
         "startups": ["simple-robots"],
-        "tags": ["augmented-reality", "python"],
+        "tags": [],
         "text":
             "If only they would make "
             "spider bots.",
@@ -28,7 +28,7 @@ POSTS = [
         "slug": "django-training",
         "pub_date": date(2013, 1, 18),
         "startups": ["jambon-software"],
-        "tags": ["django"],
+        "tags": [],
         "text":
             "Want to learn Django in a class "
             "setting? JamBon Software offers "
@@ -71,7 +71,7 @@ POSTS = [
         "slug": "more-django-info",
         "pub_date": date(2015, 4, 8),
         "startups": ["jambon-software"],
-        "tags": ["django", "web"],
+        "tags": [],
         "text":
             "Remember that the official websites "
             "for Django and this book contain a "
@@ -87,7 +87,7 @@ POSTS = [
         "slug": "new-django-version",
         "pub_date": date(2020, 5, 15),
         "startups": [],
-        "tags": ["django", "python", "web"],
+        "tags": [],
         "text":
             "Better integration with "
             "HTML Boilerstrap 9.",
