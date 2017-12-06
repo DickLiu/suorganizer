@@ -45,6 +45,13 @@ MIDDLEWARE = (
     'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'suorganizer_2017_1206',
+    }
+}
+
 ROOT_URLCONF = 'suorganizer.urls'
 
 TEMPLATES = [{
