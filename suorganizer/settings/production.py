@@ -36,7 +36,12 @@ MIDDLEWARE = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',               
+        'NAME': os.environ.get('db_name'),                      
+        'USER': os.environ.get('db_user'),
+        'PASSWORD': os.environ.get('db_user_password'),
+        'HOST': 'safe-dusk-45138.herokuapp.com',
+        'PORT': '',
     }
 }
 
