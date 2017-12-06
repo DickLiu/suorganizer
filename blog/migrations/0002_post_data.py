@@ -27,7 +27,7 @@ POSTS = [
         "title": "Django Training",
         "slug": "django-training",
         "pub_date": date(2013, 1, 18),
-        "startups": ["jambon-software"],
+        "startups": ["arachnobots"],
         "tags": [],
         "text":
             "Want to learn Django in a class "
@@ -70,7 +70,7 @@ POSTS = [
         "title": "More Django Info",
         "slug": "more-django-info",
         "pub_date": date(2015, 4, 8),
-        "startups": ["jambon-software"],
+        "startups": ["game-congress"],
         "tags": [],
         "text":
             "Remember that the official websites "
