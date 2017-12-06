@@ -1,4 +1,4 @@
-Django==1.10.5
+﻿Django==1.10.5
 django-toolbelt
 psycopg2
 whitenoise

@@ -19,16 +19,30 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 #db_from_env = dj_database_url.config()
 #DATABASES['default'].update(db_from_env)
 
+MIDDLEWARE = (
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+)
+
 DATABSES = {
         'default': dj_database_url.config(
-                default='sqlite:///{}'.format(
-                        os.path.abspath(
-                                os.path.join(
-                                        BASE_DIR, 'db.sqlite3'))),
+                default="django.db.backends.postgresql_psycopg2"))),
                         ),
                         }
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'localhost',
+    'guarded-inlet-59045.herokuapp.com',]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
