@@ -43,7 +43,7 @@ sitenews = [
         ]
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^mimi/', admin.site.urls),
     url(r'^blog/', include(blog_urls) ), # blog_post_list or blog_post_detail
     url(r'^$', RedirectView.as_view(
         pattern_name='blog_post_list',
