@@ -11,7 +11,7 @@ def generate_permissions(apps, scheme_editor):
     Permission = apps.get_model(
             'auth', 'Permission')
     try:
-        Permission.objects.get_or_create(
+        Permission.objects.get(
                 codename='add_post',
                 content_type__app_label='blog')
     except Permission.DoesNotExist:
