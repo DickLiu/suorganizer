@@ -5,13 +5,13 @@ from __future__ import unicode_literals
 from django.contrib.auth.management import \
 create_permissions
 
-from django.db import migrations, models
+from django.db import (migrations, models)
 
 def generate_permissions(apps, scheme_editor):
     Permission = apps.get_model(
             'auth', 'Permission')
     try:
-        Permission.objects.get(
+        Permission.objects.get_or_create(
                 codename='add_post',
                 content_type__app_label='blog')
     except Permission.DoesNotExist:
