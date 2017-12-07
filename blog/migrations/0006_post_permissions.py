@@ -27,8 +27,8 @@ def generate_permissions(apps, scheme_editor):
             create_permissions(apps, verbosity=0)
             apps.models_mudule = None
         '''
-        else:
-            raise
+    else:
+        raise
 
 def reverse_code(apps, schema_editor):
     pass
