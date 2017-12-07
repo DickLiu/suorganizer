@@ -15,12 +15,18 @@ def generate_permissions(apps, scheme_editor):
                 codename='add_post',
                 content_type__app_label='blog')
     except Permission.DoesNotExist:
+        for app_config in apps.get_app_configs():
+            app_config.models_module = True
+            create_permissions(app_config, apps=apps, verbosity=0)
+            app_config.models_module = None
+        '''
         models_module = getattr(
                 apps, 'models_module', None)
         if models_module is None:
             apps.models_module = True
             create_permissions(apps, verbosity=0)
             apps.models_mudule = None
+        '''
         else:
             raise
 
