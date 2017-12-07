@@ -9,19 +9,19 @@ NEWSLINKS = [
         "title": "Redundant Homepage Link",
         "link": "http://jambonsw.com",
         "pub_date": date(2013, 1, 18),
-        "startup": 'jambon-software',
+        "startup": 'arachnobots',
     },
     {
         "title": "Monkey (Wikipedia)",
         "link": "https://en.wikipedia.org/wiki/Monkey",
         "pub_date": date(2012, 7, 22),
-        "startup": "monkey-software",
+        "startup": "arachnobots",
     },
     {
         "title": "William Shakespeare (Wikipedia)",
         "link": "https://en.wikipedia.org/wiki/William_Shakespeare",
         "pub_date": date(2014, 4, 26),
-        "startup": "monkey-software",
+        "startup": "arachnobots",
     },
 ]
 
