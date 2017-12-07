@@ -9,7 +9,7 @@ NEWSLINKS = [
         "title": "Redundant Homepage Link",
         "link": "http://jambonsw.com",
         "pub_date": date(2013, 1, 18),
-        "startup": 'arachnobots',
+        "startup": 'boundless-software',
     },
     {
         "title": "Monkey (Wikipedia)",
@@ -21,7 +21,7 @@ NEWSLINKS = [
         "title": "William Shakespeare (Wikipedia)",
         "link": "https://en.wikipedia.org/wiki/William_Shakespeare",
         "pub_date": date(2014, 4, 26),
-        "startup": "arachnobots",
+        "startup": "lightning-rod-consulting",
     },
 ]
 
