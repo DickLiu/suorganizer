@@ -9,6 +9,8 @@ import sys
 
 from django.core.urlresolvers import reverse_lazy
 
+from ..log_filters import ManagementFilter
+
 BASE_DIR = os.path.dirname(
         os.path.dirname(
                 os.path.dirname(
