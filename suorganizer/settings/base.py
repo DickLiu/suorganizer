@@ -5,6 +5,7 @@ Created on Mon Dec  4 12:51:59 2017
 @author: user
 """
 import os
+import sys
 
 from django.core.urlresolvers import reverse_lazy
 
@@ -102,6 +103,43 @@ USE_TZ = True
 LOGIN_REDIRECT_URL = reverse_lazy('blog_post_list')
 LOGIN_URL = reverse_lazy('dj-auth:login')
 LOGOUT_URL = reverse_lazy('dj-auth:logout')
+
+# Logging
+# https://docs.djangoproject.com/en/1.8/topics/logging/
+
+verbose = (
+    "[%(asctime)s] %(levelname)s "
+    "[%(name)s:%(lineno)s] %(message)s")
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'remove_migration_sql': {
+            '()': ManagementFilter,
+        },
+    },
+    'handlers': {
+        'console': {
+            'filters': ['remove_migration_sql'],
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': verbose,
+            'datefmt': "%Y-%b-%d %H:%M:%S"
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'formatter': 'verbose'
+        },
+    },
+}
 
 # Email
 # https://docs.djangoproject.com/en/1.8/topics/email/
