@@ -34,7 +34,7 @@ class ActivationMailFormMixin:
         msg_list = [
                 'Activation email did not send.\n',
                 'from_email: {from_email}\n'
-                'subject: {suject}\n'
+                'subject: {subject}\n'
                 'message: {message}\n',
                 ]
         recipient_list = kwargs.get(
@@ -49,7 +49,7 @@ class ActivationMailFormMixin:
                     'error: {0.__class__.__name__}\n'
                     'args: {0.args}\n')
             error_info = error_msg.format(
-                    kwarg['error'])
+                    kwargs['error'])
             msg_list.insert(1, error_info)
         else:
             level = CRITICAL

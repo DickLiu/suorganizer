@@ -87,7 +87,7 @@ class CreateAccount(MailContextViewMixin, View):
                 return redirect(self.success_url)
             else:
                 errs = (
-                        bound_form.non_field_error())
+                        bound_form.non_field_errors())
                 for err in errs:
                     error(request, err)
                 return redirect(

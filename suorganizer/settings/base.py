@@ -146,12 +146,13 @@ LOGGING = {
 # Email
 # https://docs.djangoproject.com/en/1.8/topics/email/
 
-SERVER_EMAIL = 'contact@django-unleashed.com'
+SERVER_EMAIL = 'aaa@test.com'
 DEFAULT_FROM_EMAIL = 'no-reply@django-unleashed.com'
 EMAIL_SUBJECT_PREFIX = '[Startup Organizer] '
 MANAGERS = (
-    ('Us', 'ourselves@django-unleashed.com'),
+    ('Us', 'aaa@test.cpm'),
 )
+
 
 # Fixtures
 # https://docs.djangoproject.com/en/1.8/topics/serialization/

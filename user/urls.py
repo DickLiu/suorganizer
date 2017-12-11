@@ -83,7 +83,7 @@ urlpatterns = [
                     pattern_name='dj-auth:login',
                     permanent=False)),
         url(r'^activate/'
-            r'(?P<uidb64>[0-9A-Za-z_\-])'
+            r'(?P<uidb64>[0-9A-Za-z_\-]+)/'
             r'(?P<token>[0-9A-Za-z]{1,13}'
             r'-[0-9A-Za-z]{1,20})/$',
             ActivateAccount.as_view(),
