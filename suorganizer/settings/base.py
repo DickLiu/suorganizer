@@ -130,7 +130,7 @@ LOGGING = {
     },
     'formatters': {
         'verbose': {
-            'format': verbose,
+            'format': verbose, # from above
             'datefmt': "%Y-%b-%d %H:%M:%S"
         },
     },

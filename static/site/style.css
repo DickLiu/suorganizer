@@ -1,1 +1,36 @@
-ECHO ¤w±Ò°Ê¡C
+.hero{
+    background-image: url("images/man-people-space-desk.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;    
+}
+
+.logo{
+    font-weight: bold;
+    color: white;
+}
+
+
+
+.divider {
+    height: 15px;
+    width: 100%;
+    background-color:white;
+}
+
+.nav {
+    padding-top: 30px;
+}
+
+.nav h5 {
+    font-weight: bold;
+}
+
+.fa {
+    display: inline-block;
+}
+
+i {
+    color:#1EAEDB;
+    margin: 5px;
+    padding-right: 5px;
+}

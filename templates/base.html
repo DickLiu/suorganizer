@@ -11,82 +11,123 @@
         <meta http-equiv="X-UA-Compatitle" content="IE=edge, chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
                 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-            <link rel='stylesheet' type="text/css" href="{% static 'site/normalize.css' %}">
-            <link rel='stylesheet' type="text/css" href="{% static 'site/skeleton.css' %}">
-            <link rel='stylesheet' type="text/css" href="{% static 'site/style.css' %}">
-            <link rel="alternate" title="Blog News RSS"
+        <link rel='stylesheet' type="text/css" href="{% static 'site/normalize.css' %}">
+        <link rel='stylesheet' type="text/css" href="{% static 'site/skeleton.css' %}">
+        <link rel='stylesheet' type="text/css" href="{% static 'site/style.css' %}">
+        <link rel='stylesheet' type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <link rel="alternate" title="Blog News RSS"
                   type="applicaion/rss+xml"
                   href="{% url 'blog_rss_feed' %}">
-            <link rel="alternate" title="Blog News Atom"
+        <link rel="alternate" title="Blog News Atom"
                   type="applicaion/atom+xml"
                   href="{% url 'blog_atom_feed' %}">
 
         {% block head %} {% endblock %}
 	</head>
-    
-    <body>
-    
-        <div class='container'>
-            <div class="status row">
-                <div class='status row'>
-                    <ul class='inline'>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'dj-auth:profile' %}">View Profile</a></li>
-                        <li><a href="{% url 'dj-auth:logout' %}?next={{ request.path }}">Log Out</a></li>
-                    {% else %}
-                        <li><a href="{% url 'dj-auth:create' %}">Register</a></li>
-                        <li><a href="{% url 'dj-auth:login' %}?next={{ request.path }}">Log In</a>
-                    {% endif %}
-                    </ul>
-                </div>   
+
+    <body>    
+        <!-- Hero Section   -->
+        <div class="hero">
+            <div class='container'>
+            <header class="row">
+                <div class="ten columns" style="margin-top:25%">
+                    <h1 class="logo">Startup Organizer</h1>
+                </div>
+            </header>
+            <div class="status bar">
+                <div class="row">
+                {% if user.is_authenticated %}
+                    <div class="two columns">
+                        <a class="button button-primary" href="{% url 'dj-auth:profile' %}"><h5>View Profile</h5></a>
+                    </div>
+                    <div class="two columns">
+                        <a class="button button-primary" href="{% url 'dj-auth:logout' %}?next={{ request.path }}"><h5>Log Out</h5></a>
+                    </div>
+                {% else %}
+                    <div class="two columns">
+                        <a class="button button-primary" href="{% url 'dj-auth:create' %}">Register</a>
+                    </div>
+                    <div class="two columns">
+                        <a class="button button-primary" href="{% url 'dj-auth:login' %}?next={{ request.path }}">Log In</a>
+                    </div>
+                {% endif %}        
+                </div>        
             </div>
-        <header calss="row">
-        <div class="offset-by-one ten columns">
-            <h1 class="logo">Startup Organizer</h1>
+            
+
+                {% if messages %}
+                <div class="row">
+                    <div class="twelve columns">
+                        <ul class="messages">
+                            {% for message in messages %}
+                                {% if message.tags %}
+                                <li class='{{ message.tags }}'>
+                                {% else %}
+                                <li>
+                                {% endif %}
+                                {{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
         </div>
-        </header>
-            <nav class="nav">
-                <ul>
-                    <li>
-                    <a href="{% url 'about_site' %}">
-                        About</a></li>
-                    <li>
-                    <a href="{% url 'blog_post_list' %}">
-                        Blog</a>
-                    </li>
-                    <li>
-                    <a href="{% url 'organizer_startup_list' %}">
-                        Startups</a>
-                    </li>
-                    <li>
-                    <a href="{% url 'organizer_tag_list' %}">
-                        Tags</a></li>
-					<li>
-					<a href="{% url 'contact' %}">Contact</a>
-					</li>
-                </ul>
-            </nav>
-			{% if messages %}
-            <div class="row">
-                <div class="twelve columns">
-                    <ul class="messages">
-				{% for message in messages %}
-					{% if message.tags %}
-					<li class='{{ message.tags }}'>
-					{% else %}
-					<li>
-					{% endif %}
-					{{ message }}</li>
-				{% endfor %}
-				</ul>
-				</div>
-			</div>
-			{% endif %}
+        <!-- Hero Section   -->
+        
+        <!--nav-->
+        <nav class="nav">
+            <div class="container u-max-full-width">
+                <div class="row">
+                    <div class="one column"></div>
+                    <div class="two columns">
+                        <i class="fa fa-question-circle fa-lg u-pull-left" aria-hidden="true"></i>
+                        <h5><a href="{% url 'about_site' %}">
+                            About</a>
+                        </h5>
+                    </div>
+                    <div class="two columns">
+                         <i class="fa fa-sticky-note fa-lg u-pull-left" aria-hidden="true"></i>
+                        <h5><a href="{% url 'blog_post_list' %}">
+                            Blog</a>
+                        </h5>
+                    </div>                    
+                    <div class="two columns">
+                        <i class="fa fa-building fa-lg u-pull-left" aria-hidden="true"></i>
+                        <h5><a href="{% url 'organizer_startup_list' %}">
+                            Startups</a>
+                        </h5>
+                    </div>
+                    <div class="two columns">
+                        <i class="fa fa-tags fa-lg u-pull-left" aria-hidden="true"></i>
+                        <h5><a href="{% url 'organizer_tag_list' %}">
+                            Tags</a>
+                        </h5>
+                    </div>
+                    <div class="two columns">
+                        <i class="fa fa-envelope fa-lg u-pull-left" aria-hidden="true"></i>
+                        <h5><a href="{% url 'contact' %}">
+                            Contact</a>
+                        </h5>
+                    </div>
+                    <div class="one column"></div>
+                </div>
+            </div>
+        </nav>
+        <!--nav-->
+        
+        <!--divider-->
+        <div class="divider">
+        </div>
+        <!--divider-->
+        
+        <div class="container">   
             <main>
             {% block content %}
             This is a default content!
             {% endblock %}
-            </main>
+            </main> 
         </div><!-- container -->
         
         <footer>

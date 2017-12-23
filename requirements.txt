@@ -2,3 +2,5 @@
 django-toolbelt
 psycopg2
 whitenoise
+pylibmc
+django-pylibmc 
