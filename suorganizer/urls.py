@@ -77,4 +77,3 @@ if production.DEBUG:
     ] + urlpatterns
 
 
-urlpatterns = urlpatterns + static(production.MEDIA_URL, document_root=production.MEDIA_ROOT)
