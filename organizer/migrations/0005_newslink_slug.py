@@ -32,16 +32,9 @@ class Migration(migrations.Migration):
     dependencies = [
         ('organizer', '0004_newslink_data'),
     ]
-
     operations = [
     migrations.RunPython(
     add_slug_data,
     reverse_code=remove_slug_data
-    ),
-    migrations.AlterField(
-    model_name='newslink',
-    name='slug',
-    field=models.SlugField(
-    max_length=SLUG_LENGTH),
-    ),
+    )
     ]
