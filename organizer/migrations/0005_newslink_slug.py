@@ -34,12 +34,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-    migrations.AddField(
-    model_name='newslink',
-    name='slug',
-    field=models.SlugField(
-    max_length=SLUG_LENGTH, default='')
-    ),
     migrations.RunPython(
     add_slug_data,
     reverse_code=remove_slug_data

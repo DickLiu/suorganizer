@@ -111,7 +111,7 @@ class NewsLink(models.Model):
     pub_date = models.DateField(verbose_name=_('date published')) #'date published'是verbose name
     link = models.URLField(max_length=255,verbose_name=_('link'))
     startup = models.ForeignKey(Startup)
-    slug = models.SlugField(max_length=63)
+    slug = models.SlugField(max_length=63, default='')
 
     objects = NewsLinkManager()      
     
