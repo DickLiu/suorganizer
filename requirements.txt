@@ -4,3 +4,5 @@ psycopg2
 whitenoise
 pylibmc
 django-pylibmc 
+django-storages 
+boto3

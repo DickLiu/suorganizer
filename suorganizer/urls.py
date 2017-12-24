@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from django.conf import settings
+from .settings import base, production
 from django.contrib import admin
 from django.contrib.sitemaps.views import (
     index as site_index_view,
@@ -69,8 +69,12 @@ urlpatterns = [
             namespace='dj-auth')),
 ]
 
-if settings.DEBUG:
+if base.DEBUG:
     import debug_toolbar
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
+
+
+urlpatterns = [
+] + static(production.MEDIA_URL, document_root=production.MEDIA_ROOT)
