@@ -21,6 +21,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=63)),
                 ('pub_date', models.DateField(verbose_name='date published')),
                 ('link', models.URLField(max_length=255)),
+                ('slug', models.SlugField(default='', max_length=63)),
             ],
             options={
                 'verbose_name': 'news article',

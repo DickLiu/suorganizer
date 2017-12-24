@@ -11,7 +11,6 @@ def add_slug_data(apps, schema_editor):
     query = NewsLink.objects.all()
     for newslink in query:
         expected_slug = slugify(newslink.title)
-        '''
         rivals=(
         NewsLink.objects.filter(
         startup=newslink.startup,
@@ -21,8 +20,7 @@ def add_slug_data(apps, schema_editor):
             newslink.slug = '{}-{}'.format(
             expected_slug[:str_len-1], rivals+1)
         else:
-        '''
-        newslink.slug = expected_slug
+            newslink.slug = expected_slug
     newslink.save()
 
 def remove_slug_data(apps, scheme_editor):

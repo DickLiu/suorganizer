@@ -55,7 +55,13 @@ class Migration(migrations.Migration):
         ('organizer', '0003_startup_data'),
     ]
 
-    operations = [migrations.RunPython(
+    operations = [
+            migrations.RunPython(
                   add_newslink_data,
-                  remove_newslink_data)
+                  remove_newslink_data),
+    migrations.AddField(
+            model_name='newslink',
+            name='slug',
+            field=models.SlugField(default='', max_length=63),
+        ),
     ]
