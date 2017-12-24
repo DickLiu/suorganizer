@@ -40,7 +40,7 @@ DATABASES['default'] =  dj_database_url.config()
 
 ALLOWED_HOSTS = [
     'localhost',
-    'limitless-sierra-57514.herokuapp.com',]
+    'dry-inlet-24923.herokuapp.com',]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

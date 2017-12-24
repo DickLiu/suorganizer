@@ -51,7 +51,7 @@ MIDDLEWARE = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'suorganizer_2017_1206',
+        'NAME': 'suorganizer_2017_1224',
     }
 }
 
