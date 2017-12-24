@@ -40,27 +40,15 @@ DATABASES['default'] =  dj_database_url.config()
 
 ALLOWED_HOSTS = [
     'localhost',
-    'safe-dusk-45138.herokuapp.com',]
+    'limitless-sierra-57514.herokuapp.com',]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-'''
-
-COMPRESS_OFFLINE = True
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.CSSMinFilter',
-]
-COMPRESS_CSS_HASHING_METHOD = 'content'
-'''
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 '''
 def get_cache():
